@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!-- Map between NISP attribute types and similar attribute types
+     defined your ARIS filter. -->
+
+<!-- The values below are implemented by the Danish extended NAF3 filter.
+     Replace with your own, as these values will differ for each
+     ARIS installation -->
+ 
+<nisp-attributes>
+  <nkey nisp.attribute="orgid"         value="db7dbe50-0162-11e2-4df7-00155d5f8f19"/>
+  <nkey nisp.attribute="pubnum"        value="1d2ee9a0-0163-11e2-4df7-00155d5f8f19"/>
+  <nkey nisp.attribute="title"         value="45f5e870-0163-11e2-4df7-00155d5f8f19"/> <!-- Currently defined as NISP GUID  -->
+  <nkey nisp.attribute="date"          value="c8d548e0-0162-11e2-4df7-00155d5f8f19"/>
+  <nkey nisp.attribute="version"       value="30006ae0-0163-11e2-4df7-00155d5f8f19"/>
+  <nkey nisp.attribute="organisation"  value="0eb1f570-0163-11e2-4df7-00155d5f8f19"/>
+  <nkey nisp.attribute="applicability" value="f5c1ae70-0162-11e2-4df7-00155d5f8f19"/>
+  <nkey nisp.attribute="status"        value="3b35d530-0163-11e2-4df7-00155d5f8f19"/>
+</nisp-attributes>
+
+
+<!--
+
+NISP Tag   use AT_NAME
+
+-->

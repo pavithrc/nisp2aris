@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+<!DOCTYPE standards
+  PUBLIC "-//DDRE//DTDStandardDB XML V4.0//EN" "../schema/dtd/stddb40.dtd">
+-->
+<standards revision="ADatP-34(G)">
+ 
+   
+   <taxonomy>
+      <servicearea id="sa1" title="Service Area 1 (Empty)"/>
+      <servicearea id="sa2" title="Service Area 2 (Empty)"/>
+      <servicearea id="sa3" title="Service Area 3">
+         <servicecategory id="single" title="Single Standard"/>
+         <servicecategory id="profile" title="Profile"/>
+         <servicecategory id="substandards" title="Sub Standards"/>
+      </servicearea>
+   </taxonomy>
+   
+   
+   <lists>
+      <sp-list tref="single">
+        <sp-view>
+           <select id="ietf-rfc2616" mode="mandatory">HTTP</select>
+        </sp-view>
+        <sp-view>
+           <select id="nisp-id" mode="mandatory">DEMO</select>
+        </sp-view>
+      </sp-list>
+      <sp-list tref="profile">
+        <sp-view>
+          <select id="bp-dhcp" mode="mandatory">DHCP</select>
+        </sp-view>
+      </sp-list>
+      <sp-list tref="substandards">
+        <sp-view>
+          <select id="iso-iec-8859" mode="mandatory">8859</select>
+        </sp-view>
+      </sp-list>   
+   </lists>
+
+
+   <records>
+      <standard id="nisp-id" tag="NISP TAG">
+        <document orgid="NISP ORGID" pubnum="NISP PUBNUM" date="" title="NISP TITLE" version="NISP VERSION"/>
+        <applicability/>
+        <status mode="unknown">
+          <uri>XXX</uri>
+          <history>
+             <event flag="added" date="2010-09-22" rfcp="" version="4.0"/>
+          </history>
+        </status>
+        <uuid>ebc2c42f-359d-4498-81f8-15936f84f010</uuid>
+      </standard>
+
+      <standard id="ietf-rfc2821" tag="SMTP">
+         <document orgid="ietf" pubnum="RFC 2821" date="2001-04-00" title="Simple Mail Transfer Protocol"/>
+         <applicability>
+            This document is a self-contained specification of the basic
+            protocol for the Internet electronic mail transport.  It consolidates, updates
+            and clarifies, but doesn't add new or change existing functionality of the following:
+            <itemizedlist>
+               <listitem>
+                  <para>
+                     the original SMTP (Simple Mail Transfer Protocol) specification of
+                     RFC 821 [30],
+                  </para>
+               </listitem>
+               <listitem>
+                  <para>
+                     domain name system requirements and implications for mail
+                     transport from RFC 1035 [22] and RFC 974 [27],
+                  </para>
+               </listitem>
+               <listitem>
+                  <para>
+                     the clarifications and applicability statements in RFC 1123 [2],
+                     and
+                  </para>
+               </listitem>
+               <listitem>
+                  <para>material drawn from the SMTP Extension mechanisms [19]</para>
+               </listitem>
+            </itemizedlist>
+            <para>
+               It obsoletes RFC 821, RFC 974, and updates RFC 1123 (replaces the
+               mail transport materials of RFC 1123).  However, RFC 821 specifies some features
+               that were not in significant use in the Internet by the mid-1990s and (in
+               appendices) some additional transport models. Those sections are omitted here
+               in the interest of clarity brevity; readers needing them should refer to RFC 821.
+            </para>
+         </applicability>
+         <status mode="unknown">
+            <uri>http://www.ietf.org/rfc/rfc2821.txt</uri>
+            <history>
+               <event flag="added" date="2010-09-22" rfcp="" version="4.0"/>
+            </history>
+         </status>
+         <uuid>ebc2c42f-359d-4498-81f8-15936f84f001</uuid>
+      </standard>
+
+
+      <standard id="ietf-rfc2131" tag="DHCP">
+         <document orgid="ietf" pubnum="RFC 2131" date="1997" title="Dynamic Host Configuration Protocol (DHCP)"/>
+         <applicability>
+            The Dynamic Host Configuration Protocol (DHCP) provides a framework
+            for passing configuration information to hosts on a TCPIP network.
+            DHCP is based on the Bootstrap Protocol (BOOTP), adding the
+            capability of automatic allocation of reusable network addresses and
+            additional configuration options. DHCP captures the behavior of
+            BOOTP relay agents, and DHCP participants can interoperate
+            with BOOTP participants.
+         </applicability>
+         <status mode="unknown">
+            <uri>http://www.ietf.org/rfc/rfc2131.txt</uri>
+            <history>
+               <event flag="added" date="2000-07-14" rfcp="" version="0.2"/>
+               <event flag="changed" date="2005-09-15" rfcp="" version="0.7"/>
+               <event flag="changed" date="2010-10-29" rfcp="" version="4.0"/>
+            </history>
+         </status>
+         <uuid>c5b8e2d4-3af5-466f-842a-43f00eb6a002</uuid>
+      </standard>
+      
+      <standard id="ietf-rfc2132" tag="DHCP options">
+         <document orgid="ietf" pubnum="RFC 2132" date="1997" title="DHCP Options and BOOTP Vendor Extensions"/>
+         <applicability>
+            This document specifies the current set of DHCP options. Future
+            options will be specified in separate RFCs. The current list of
+            valid options is also available in ftp://ftp.isi.edu/in-
+            notes/iana/assignments.
+         </applicability>
+         <status mode="unknown">
+            <uri>http://www.ietf.org/rfc/rfc2132.txt</uri>
+            <history>
+               <event flag="added" date="2000-07-14" rfcp="" version="0.2"/>
+               <event flag="changed" date="2005-09-15" rfcp="" version="0.7"/>
+               <event flag="changed" date="2010-10-29" rfcp="" version="4.0"/>
+            </history>
+         </status>
+         <uuid>fd24cba0-a451-4203-aa87-49348da6f003</uuid>
+      </standard>
+      
+      <profile id="bp-dhcp" tag="DHCP Protokol" type="base">
+         <parts>
+            <refstandard refid="ietf-rfc2131"/>
+            <refstandard refid="ietf-rfc2132"/>
+         </parts>
+         <applicability>
+            The DHCP provides configuration information to Internet hosts.
+            There are several Internet protocols that address some parts of dynamic address
+            allocation, such as BOOTP, and RARP. However, none of these is as flexible
+            as DHCP, and although BOOTP is very similar, it does not address full dynamic
+            address allocation. Dynamic address allocation is particularly important now
+            that IPv4 addresses are relatively scarce. It facilitates renumbering when a
+            site/organisation changes IP provider.
+            <para>
+               Configuration parameters and other control information are carried in tagged
+               data items that are stored in the 'options' field of the DHCP message. The
+               data items themselves are also called "options." This document specifies the
+               current set of DHCP options. Future options will be specified in separate RFCs.
+            </para>
+         </applicability>
+         <status mode="unknown">
+            <uri>http://www.ietf.org/rfc/rfc2131.txt</uri>
+            <history>
+               <event flag="added" date="2000-07-14" rfcp="" version="0.2"/>
+               <event flag="changed" date="2005-09-15" rfcp="" version="0.7"/>
+            </history>
+         </status>
+         <uuid>3115b94e-b9ae-462b-aa40-c19010db9004</uuid>
+      </profile>
+      
+
+
+      <standard id="ietf-rfc2616" tag="HTTP v1.1">
+         <document orgid="ietf" pubnum="RFC 2616" date="1999" title="HyperText Transfer Protocol (HTTP), version 1.1" version="1.1">
+            <comment>updated by RFC 2817</comment>
+         </document>
+         <applicability>
+            HTTP is a page-based search and retrieval protocol
+            used by the World Wide Web (WWW) to transfer hypertext
+            documents. HTTP uses links contained in HTML formatted documents to
+            navigate between web resources. These links are based on Internet
+            addresses known as Uniform Resource Locators (URLs) of the form
+            "HTTP:// [ ... ]". The first part of the URL indicates the protocol
+            used to access the web server, i.e. "HTTP", and the second part is
+            the web domain name, e.g. "www.lycos.com". HTTP 1.1 described in
+            IETF RFC 2616:1999 is upward compatible with the older version HTTP 1.0
+            as described in IETF RFC 1945:1996.
+         </applicability>
+         <status mode="unknown">
+            <uri>http://www.ietf.org/rfc/rfc2616.txt</uri>
+            <history>
+               <event flag="added" date="1998-11-10" version="0.1"/>
+               <event flag="changed" date="2000-07-14" rfcp="" version="0.2"/>
+               <event flag="changed" date="2005-09-15" rfcp="" version="0.7"/>
+            </history>
+         </status>
+         <uuid>6aacaf28-3d91-41b6-b1cd-9272fa4a6005</uuid>
+      </standard>
+
+
+      <standard id="iso-iec-8859-1" tag="ISO-8859-1">
+         <document orgid="iso-iec" pubnum="8859-1" date="1998" title="8-Bit Code Set Part 1: Latin Alphabet No. 1 (Europe/Latin America)"/>
+         <applicability>
+            This part of ISO/IEC 8859 specifies a set of 191 coded graphic characters identified as Latin
+            alphabet No. 1.
+            <para>
+               This set of coded graphic characters is intended for use in data and text processing
+               applications and also for information interchange.
+            </para>
+            <para>
+               The set contains graphic characters used for general purpose applications in typical office
+               environments in at least the following languages:
+            </para>
+            <para>
+               Albanian, Basque, Breton, Catalan, Danish, Dutch, English, Faroese, Finnish, French (with
+               restrictions, see Annex A.1, Notes), Frisian, Galician, German, Greenlandic, Icelandic, Irish
+               Gaelic (new orthography), Italian, Latin, Luxemburgish, Norwegian, Portuguese, Rhaeto-Romanic,
+               Scottish Gaelic, Spanish and Swedish.
+            </para>
+            <para>
+               This set of coded graphic characters may be regarded as a version of an 8-bit code according
+               to ISO/IEC 2022 or ISO/IEC 4873 at level 1.
+            </para>
+            <para>
+               This part of ISO/IEC 8859 may not be used in conjunction with any other parts of ISO/IEC 8859.
+               If coded characters from more than one part are to be used together, by means of code extension
+               techniques, the equivalent coded character sets from ISO/IEC 10367 should be used instead within
+               a version of ISO/IEC 4873 at level 2 or level 3.
+            </para>
+            <para>
+               The coded characters in this set may be used in conjunction with coded control functions
+               selected from ISO/IEC 6429. However, control functions are not used to create composite graphic
+               symbols from two or more graphic characters (see clause 6).
+            </para>
+         </applicability>
+         <status mode="unknown">
+            <uri>http://www.iso.org/iso/iso_catalogue/catalogue_tc/catalogue_detail.htm?csnumber=28245</uri>
+            <history>
+               <event flag="added" date="2000-03-20" rfcp="" version="0.2"/>
+               <event flag="changed" date="2001-11-21" rfcp="" version="0.3"/>
+               <event flag="changed" date="2003-09-12" rfcp="" version="0.5"/>
+               <event flag="changed" date="2005-09-15" rfcp="" version="0.7"/>
+               <event flag="changed" date="2010-11-01" rfcp="" version="4.0"/>
+            </history>
+         </status>
+         <uuid>b3097b53-1acd-42b4-a769-523809c40006</uuid>
+      </standard>
+      
+      <standard id="iso-iec-8859-2" tag="ISO-8859-2">
+         <document orgid="iso-iec" pubnum="8859-2" date="1999" title="8-bit single-byte coded graphic character sets -- Part 2: Latin alphabet No. 2"/>
+         <applicability>
+            This part of ISO/IEC 8859 specifies a set of 191 coded graphic characters identified as Latin
+            alphabet No. 2.
+            <para>
+               This set of coded graphic characters is intended for use in data and text processing
+               applications and also for information interchange.
+            </para>
+            <para>
+               The set contains graphic characters used for general purpose applications in typical
+               office environments in at least the following languages:
+            </para>
+            <para>
+               Albanian, Croat, Czech, English, German, Hungarian, Latin, Polish, Romanian, Slovak,
+               Slovene and Sorbian.
+            </para>
+            <para>
+               This set of coded graphic characters may be regarded as a version of an 8-bit code
+               according to ISO/IEC 2022 or ISO/IEC 4873 at level 1.
+            </para>
+            <para>
+               This part of ISO/IEC 8859 may not be used in conjunction with any other parts of
+               ISO/IEC 8859. If coded characters from more than one part are to be used together, by means
+               of code extension techniques, the equivalent coded character sets from ISO/IEC 10367 should
+               be used instead within a version of ISO/IEC 4873 at level 2 or level 3.
+            </para>
+            <para>
+               The coded characters in this set may be used in conjunction with coded control functions
+               selected from ISO/IEC 6429. However, control functions are not used to create composite graphic
+               symbols from two or more graphic characters (see clause 6).
+            </para>
+         </applicability>
+         <status mode="unknown">
+            <uri>http://www.iso.org/iso/iso_catalogue/catalogue_tc/catalogue_detail.htm?csnumber=28246</uri>
+            <history>
+               <event flag="added" date="2000-03-20" rfcp="" version="0.2"/>
+               <event flag="changed" date="2001-11-21" rfcp="" version="0.3"/>
+               <event flag="changed" date="2003-09-12" rfcp="" version="0.5"/>
+               <event flag="changed" date="2005-09-15" rfcp="" version="0.7"/>
+               <event flag="changed" date="2010-11-01" rfcp="" version="4.0"/>
+               <event flag="changed" date="2013-09-01" rfcp="" version="7.0"/>
+            </history>
+         </status>
+         <uuid>aded8be5-b0b0-467a-93ff-906c59fad007</uuid>
+      </standard>
+      
+      <standard id="iso-iec-8859-3" tag="ISO-8859-3">
+         <document orgid="iso-iec" pubnum="8859-3" date="1999" title="8-Bit Code Set Part 3: Latin Alphabet No. 3 (SE Europe)"/>
+         <applicability>
+            This part of ISO/IEC 8859 specifies a set of 184 coded graphic characters identified as Latin
+            alphabet No. 3.
+            <para>
+               This set of coded graphic characters is intended for use in data and text processing
+               applications and also for information interchange.
+            </para>
+            <para>
+               The set contains graphic characters used for general purpose applications in typical
+               office environments in at least the following languages:
+            </para>
+            <para>
+               Esperanto and Maltese, and if needed in conjunction with these, English, French (with
+               restrictions, see Annex A.1, Notes), German, Italian, Latin and Portuguese. Coding of Turkish
+               characters using this part is deprecated, that specified in part 9 is to be used.
+            </para>
+            <para>
+               This set of coded graphic characters may be regarded as a version of an 8-bit code
+               according to ISO/IEC 2022 or ISO/IEC 4873 at level 1.
+            </para>
+            <para>
+               This part of ISO/IEC 8859 may not be used in conjunction with any other parts of
+               ISO/IEC 8859. If coded characters from more than one part are to be used together, by means
+               of code extension techniques, the equivalent coded character sets from ISO/IEC 10367 should
+               be used instead within a version of ISO/IEC 4873 at level 2 or level 3.
+            </para>
+            <para>
+               The coded characters in this set may be used in conjunction with coded control functions
+               selected from ISO/IEC 6429. However, control functions are not used to create composite graphic
+               symbols from two or more graphic characters (see clause 6).
+            </para>
+         </applicability>
+         <status mode="unknown">
+            <uri>http://www.iso.org/iso/iso_catalogue/catalogue_tc/catalogue_detail.htm?csnumber=28247</uri>
+            <history>
+               <event flag="added" date="2000-03-20" rfcp="" version="0.2"/>
+               <event flag="changed" date="2001-11-21" rfcp="" version="0.3"/>
+               <event flag="changed" date="2003-09-12" rfcp="" version="0.5"/>
+               <event flag="changed" date="2005-09-15" rfcp="" version="0.7"/>
+               <event flag="changed" date="2010-11-01" rfcp="" version="4.0"/>
+            </history>
+         </status>
+         <uuid>dd311663-be84-498a-8beb-bd7e30d13008</uuid>
+      </standard>
+      
+      
+      <standard id="iso-iec-8859" tag="ISO-8859">
+         <document orgid="iso-iec" pubnum="8859" date="2001" title="8-Bit Single Byte Coded Graphic Character Sets, Parts 1-16">
+            <substandards>
+               <refstandard refid="iso-iec-8859-1"/>
+               <refstandard refid="iso-iec-8859-2"/>
+               <refstandard refid="iso-iec-8859-3"/>
+            </substandards>
+         </document>
+         <applicability>
+            This standard specifies a set of up to 191 graphic characters
+            by means of a single 8-Bit byte.
+            <para>
+               The ISO 8859 charsets were designed in the mid-1980s by the European Computer
+               Manufacturer's Association (ECMA) and endorsed by the International Standards
+               Organisation (ISO).The ISO 8859 charsets are not even remotely as complete
+               as the truly great Unicode but they have been around and usable for quite
+               a while (first registered Internet charsets for use with MIME) and have already
+               offered a major improvement over the plain 7bit US-ASCII.
+            </para>
+         </applicability>
+         <status mode="unknown">
+            <uri>http://www.iso.org/iso/iso_catalogue/catalogue_tc/catalogue_detail.htm?csnumber=28245</uri>
+            <history>
+               <event flag="added" date="2000-03-20" rfcp="" version="0.2"/>
+               <event flag="changed" date="2001-11-21" rfcp="" version="0.3"/>
+               <event flag="changed" date="2003-09-12" rfcp="" version="0.5"/>
+               <event flag="changed" date="2005-09-15" rfcp="" version="0.7"/>
+               <event flag="changed" date="2010-11-01" rfcp="" version="4.0"/>
+            </history>
+         </status>
+         <uuid>07a88e43-bb59-417d-ae58-c2ad9f733009</uuid>
+      </standard>
+
+   </records>
+
+
+      
+   
+   <organisations>
+      <orgkey key="acm" text="ACM"/>
+      <orgkey key="adobe" text="Adobe Systems Incorporated"/>
+      <orgkey key="ansi" text="ANSI"/>
+      <orgkey key="ansinist" text="ANSI/NIST"/>
+      <orgkey key="asd" text="AeroSpace and Defence Industries Association of Europe"/>
+      <orgkey key="atmforum" text="ATM-Forum"/>
+      <orgkey key="bpmi" text="BPMI"/>
+      <orgkey key="capi" text="CAPI"/>
+      <orgkey key="cceb" text="Combined Communications and Electronic Board"/>
+      <orgkey key="ccitt" text="CCITT"/>
+      <orgkey key="checkpoint" text="Checkpoint"/>
+      <orgkey key="cjcsm" text="Chairman of the Joint Chiefs of Staff"/>
+      <orgkey key="cmu" text="CMU"/>
+      <orgkey key="compuserve" text="CompuServe"/>
+      <orgkey key="digest" text="Digest"/>
+      <orgkey key="dmtf" text="DMTF"/>
+      <orgkey key="dod" text="DoD"/>
+      <orgkey key="ebxml" text="EBXML"/>
+      <orgkey key="ecma" text="ECMA"/>
+      <orgkey key="eia" text="Electronic Industries Association"/>
+      <orgkey key="emv" text="EMVco"/>
+      <orgkey key="erdas" text="ERDAS"/>
+      <orgkey key="esri" text="ESRI"/>
+      <orgkey key="etsi" text="European Telecommunication Standardisation Institute"/>
+      <orgkey key="eurocom" text="EUROCOM Specifications"/>
+      <orgkey key="eurocontrol" text="Eurocontrol Specifications"/>
+      <orgkey key="fas" text="Federation of American Scientists"/>
+      <orgkey key="fbi" text="Federal Bureau of Investigation"/>
+      <orgkey key="ffi" text="Norwegian Defence Research Establishment"/>
+      <orgkey key="fsb" text="Free Standards Group"/>
+      <orgkey key="ggf" text="Global Grid Forum"/>
+      <orgkey key="IICWG" text="International Interface Control Working Group"/>
+      <orgkey key="iec" text="IEC"/>
+      <orgkey key="ieee" text="IEEE"/>
+      <orgkey key="ieee-ansi" text="IEEE/ANSI"/>
+      <orgkey key="ieee-iec" text="IEEE/IEC"/>
+      <orgkey key="ietf" text="IETF"/>
+      <orgkey key="iho" text="International Hydrographic Organisation"/>
+      <orgkey key="isaca" text="Information Systems Audit and Control Association"/>
+      <orgkey key="iso" text="ISO"/>
+      <orgkey key="iso-iec" text="ISO/IEC"/>
+      <orgkey key="itu" text="ITU"/>
+      <orgkey key="jcp" text="Java Community Process"/>
+      <orgkey key="linux" text="Linux"/>
+      <orgkey key="linuxbase" text="Linux-Base"/>
+      <orgkey key="LizardTech" text="Lizard Tech"/>
+      <orgkey key="microsoft" text="Microsoft"/>
+      <orgkey key="mip" text="Multilateral Interoperability Program"/>
+      <orgkey key="mod-uk" text="UK MoD"/>
+      <orgkey key="nato" text="NATO"/>
+      <orgkey key="netscape" text="Netscape"/>
+      <orgkey key="nima" text="NIMA"/>
+      <orgkey key="nist" text="NIST"/>
+      <orgkey key="oagi" text="Open Applications Group"/>
+      <orgkey key="oasis" text="OASIS"/>
+      <orgkey key="ogc" text="Open GIS Consortium"/>
+      <orgkey key="ogis" text="Open GIS Forum (OGIS)"/>
+      <orgkey key="opengl" text="OpenGL"/>
+      <orgkey key="opengroup" text="The Open Group"/>
+      <orgkey key="opensearch" text="OpenSearch.org"/>
+      <orgkey key="osf" text="OSF"/>
+      <orgkey key="osgeo" text="Open Source Geospatial Foundation"/>
+      <orgkey key="osgi" text="OSGi Alliance"/>
+      <orgkey key="omg" text="OMG"/>
+      <orgkey key="odmg" text="ODMG"/>
+      <orgkey key="opensis" text="Open Services Infra-Structure Initiative"/>
+      <orgkey key="php" text="PHP Group"/>
+      <orgkey key="ps-sc-wg" text="PS/SC Working Group"/>
+      <orgkey key="rational" text="Rational"/>
+      <orgkey key="rss" text="RSS Advisory Board"/>
+      <orgkey key="rsa" text="RSA"/>
+      <orgkey key="sun" text="SUN Microsystems"/>
+      <orgkey key="teletrust" text="Teletrust"/>
+      <orgkey key="usb.org" text="USB.org"/>
+      <orgkey key="w3c" text="W3C"/>
+      <orgkey key="wapforum" text="WAP Forum"/>
+      <orgkey key="wmo" text="Wolrd Meteorological Organisation"/>
+      <orgkey key="ws-i" text="Web Services Interoperability Organisation"/>
+      <orgkey key="x-consortium" text="X Consortium"/>
+      <orgkey key="xmpp" text="XMPP Standards Foundation"/>
+      <orgkey key="3gpp" text="3rd Generation Partnership Project"/>
+   </organisations>
+
+</standards>

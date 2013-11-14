@@ -1,0 +1,17 @@
+TODO
+====
+
+Create connection elements
+Extract parameter to a param.xsl file
+Create multilanguage (two) facility
+Fix missing standard/coverstandard attributes (date,organisation,applicability and status)
+Add additional protocol attributes (all requires modification in filter)
+Modify filter (AVM)
+Write documentation
+Publish to TIDE
+
+
+DONE
+
+Create Coverstandard
+Create Profiles
