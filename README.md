@@ -2,7 +2,6 @@
 % Jens Stavnstrup
 % 30. august 2013
 
-
 Initial import NAF
 
 * her gemmes kopi af uploaded version
