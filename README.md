@@ -1,6 +1,15 @@
-% NISP import in ARIS-NAF3
-% Jens Stavnstrup
-% 30. august 2013
+# NISP2ARIS
+
+
+
+Importing the NATO Interoperability Standards and Profiles into an ARIS NAF3 based architecture repository
+
+
+Issues
+
+* Attributes in standards and profiles - use attribute mapping
+
+
 
 Initial import NAF
 
@@ -15,18 +24,9 @@ Initial import NAF
 
 
 
-
-
-
-
 Problems
 ========
 
-* Where is the latest DTD for the ARIS XML
 
-* When exporting ARIS object which uses user defined attributes, the
-  attribute types is identified as UUIDs - how is the label i.e. "NISP
-  Organisation" mapped to the UUID representing the attribute? Is this
-  part of a ARIS NAF filter, which should be distributed to external
-  partners as well?
+
 
