@@ -19,14 +19,14 @@
 
 <xsl:param name="nisp.attributes.map" select="document($nisp.attributes.file)"/>
 
+<xsl:param name="show.nisp.id" select="1"/>
 <xsl:param name="show.nisp.orgid" select="1"/>
 <xsl:param name="show.nisp.pubnum" select="1"/>
 <xsl:param name="show.nisp.title" select="1"/>
 <xsl:param name="show.nisp.date" select="0"/>
 <xsl:param name="show.nisp.version" select="1"/>
-<xsl:param name="show.nisp.organisation" select="0"/>
-<xsl:param name="show.nisp.applicability" select="0"/>
-<xsl:param name="show.nisp.status" select="0"/>
+<xsl:param name="show.nisp.applicability" select="1"/>
+<xsl:param name="show.nisp.status" select="1"/>
 
 <!-- Language parameters -->
 
@@ -70,6 +70,12 @@
       <xsl:with-param name="type" select="'AT_NAME'"/>
       <xsl:with-param name="value" select="@tag"/>
     </xsl:call-template>
+    <xsl:if test="$show.nisp.id = 1">
+      <xsl:call-template name="create.AttrDef">
+        <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='id']/@aris.type"/>
+        <xsl:with-param name="value" select="@id"/>
+      </xsl:call-template>
+    </xsl:if>
     <xsl:if test="$show.nisp.orgid = 1">
       <xsl:call-template name="create.AttrDef">
         <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='orgid']/@aris.type"/>
@@ -97,13 +103,7 @@
     <xsl:if test="($show.nisp.version = 1) and (document/@version != '')">
       <xsl:call-template name="create.AttrDef">
         <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='version']/@aris.type"/>
-        <xsl:with-param name="value" select="@id"/>
-      </xsl:call-template>
-    </xsl:if>
-    <xsl:if test="$show.nisp.organisation = 1">
-      <xsl:call-template name="create.AttrDef">
-        <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='organisation']/@aris.type"/>
-        <xsl:with-param name="value" select="XXXXXXXXX"/>
+        <xsl:with-param name="value" select="document/@version"/>
       </xsl:call-template>
     </xsl:if>
     <xsl:if test="$show.nisp.applicability = 1">
@@ -114,8 +114,8 @@
     </xsl:if>
     <xsl:if test="$show.nisp.status = 1">
       <xsl:call-template name="create.AttrDef">
-        <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='applicability']/@aris.type"/>
-        <xsl:with-param name="value" select="applicability"/>
+        <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='status']/@aris.type"/>
+        <xsl:with-param name="value" select="status/@mode"/>
       </xsl:call-template>
     </xsl:if>
   </ObjDef>
@@ -132,6 +132,12 @@
       <xsl:with-param name="type" select="'AT_NAME'"/>
       <xsl:with-param name="value" select="concat(@tag, ' (CS)')"/>
     </xsl:call-template>
+    <xsl:if test="$show.nisp.id = 1">
+      <xsl:call-template name="create.AttrDef">
+        <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='id']/@aris.type"/>
+        <xsl:with-param name="value" select="@id"/>
+      </xsl:call-template>
+    </xsl:if>
     <xsl:if test="$show.nisp.orgid = 1">
       <xsl:call-template name="create.AttrDef">
         <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='orgid']/@aris.type"/>
@@ -159,13 +165,7 @@
     <xsl:if test="($show.nisp.version = 1) and (document/@version != '')">
       <xsl:call-template name="create.AttrDef">
         <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='version']/@aris.type"/>
-        <xsl:with-param name="value" select="@id"/>
-      </xsl:call-template>
-    </xsl:if>
-    <xsl:if test="$show.nisp.organisation = 1">
-      <xsl:call-template name="create.AttrDef">
-        <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='organisation']/@aris.type"/>
-        <xsl:with-param name="value" select="XXXXXXXXX"/>
+        <xsl:with-param name="value" select="document/@version"/>
       </xsl:call-template>
     </xsl:if>
     <xsl:if test="$show.nisp.applicability = 1">
@@ -177,7 +177,7 @@
     <xsl:if test="$show.nisp.status = 1">
       <xsl:call-template name="create.AttrDef">
         <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='status']/@aris.type"/>
-        <xsl:with-param name="value" select="status"/>
+        <xsl:with-param name="value" select="status/@mode"/>
       </xsl:call-template>
     </xsl:if>
   </ObjDef>
@@ -194,50 +194,54 @@
       <xsl:with-param name="type" select="'AT_NAME'"/>
       <xsl:with-param name="value" select="concat(@tag, ' (P)')"/>
     </xsl:call-template>
+    <xsl:if test="$show.nisp.id = 1">
+      <xsl:call-template name="create.AttrDef">
+        <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='id']/@aris.type"/>
+        <xsl:with-param name="value" select="@id"/>
+      </xsl:call-template>
+    </xsl:if>
     <xsl:if test="$show.nisp.orgid = 1">
       <xsl:call-template name="create.AttrDef">
         <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='orgid']/@aris.type"/>
-        <xsl:with-param name="value" select="profilespec/@orgid"/>
+        <xsl:with-param name="value" select="document/@orgid"/>
       </xsl:call-template>
     </xsl:if>
     <xsl:if test="$show.nisp.pubnum = 1">
       <xsl:call-template name="create.AttrDef">
         <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='pubnum']/@aris.type"/>
-        <xsl:with-param name="value" select="profilespec/@pubnum"/>
+        <xsl:with-param name="value" select="document/@pubnum"/>
       </xsl:call-template>
     </xsl:if>
     <xsl:if test="$show.nisp.title = 1">
       <xsl:call-template name="create.AttrDef">
         <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='title']/@aris.type"/>
-        <xsl:with-param name="value" select="profilespec/@title"/>
+        <xsl:with-param name="value" select="document/@title"/>
       </xsl:call-template>
     </xsl:if>
     <xsl:if test="$show.nisp.date = 1">
       <xsl:call-template name="create.AttrDef">
         <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='date']/@aris.type"/>
-        <xsl:with-param name="value" select="profilespec/@date"/>
+        <xsl:with-param name="value" select="document/@date"/>
       </xsl:call-template>
     </xsl:if>
-    <xsl:if test="($show.nisp.version = 1) and (profilespec/@version != '')">
+    <xsl:if test="($show.nisp.version = 1) and (document/@version != '')">
       <xsl:call-template name="create.AttrDef">
         <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='version']/@aris.type"/>
-        <xsl:with-param name="value" select="@id"/>
+        <xsl:with-param name="value" select="document/@version"/>
       </xsl:call-template>
     </xsl:if>
-    <xsl:if test="$show.nisp.organisation = 1">
-      <xsl:call-template name="create.AttrDef">
-        <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='organisation']/@aris.type"/>
-        <xsl:with-param name="value" select="XXXXXXXXX"/>
-      </xsl:call-template>
-    </xsl:if>
-<!--
     <xsl:if test="$show.nisp.applicability = 1">
       <xsl:call-template name="create.AttrDef">
         <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='applicability']/@aris.type"/>
         <xsl:with-param name="value" select="applicability"/>
       </xsl:call-template>
     </xsl:if>
--->
+    <xsl:if test="$show.nisp.status = 1">
+      <xsl:call-template name="create.AttrDef">
+        <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='status']/@aris.type"/>
+        <xsl:with-param name="value" select="status/@mode"/>
+      </xsl:call-template>
+    </xsl:if>
   </ObjDef>
 </xsl:template>
 

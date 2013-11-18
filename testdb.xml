@@ -36,14 +36,14 @@
         <sp-view>
           <select id="iso-iec-8859" mode="mandatory">8859</select>
         </sp-view>
-      </sp-list>   
+      </sp-list> 
    </lists>
 
 
    <records>
       <standard id="nisp-id" tag="NISP TAG">
         <document orgid="NISP ORGID" pubnum="NISP PUBNUM" date="" title="NISP TITLE" version="NISP VERSION"/>
-        <applicability/>
+        <applicability>Applicability</applicability>
         <status mode="unknown">
           <uri>XXX</uri>
           <history>
@@ -248,7 +248,7 @@
          </status>
          <uuid>b3097b53-1acd-42b4-a769-523809c40006</uuid>
       </standard>
-      
+
       <standard id="iso-iec-8859-2" tag="ISO-8859-2">
          <document orgid="iso-iec" pubnum="8859-2" date="1999" title="8-bit single-byte coded graphic character sets -- Part 2: Latin alphabet No. 2"/>
          <applicability>
@@ -295,7 +295,7 @@
          </status>
          <uuid>aded8be5-b0b0-467a-93ff-906c59fad007</uuid>
       </standard>
-      
+
       <standard id="iso-iec-8859-3" tag="ISO-8859-3">
          <document orgid="iso-iec" pubnum="8859-3" date="1999" title="8-Bit Code Set Part 3: Latin Alphabet No. 3 (SE Europe)"/>
          <applicability>
@@ -376,7 +376,6 @@
          </status>
          <uuid>07a88e43-bb59-417d-ae58-c2ad9f733009</uuid>
       </standard>
-
    </records>
 
 
