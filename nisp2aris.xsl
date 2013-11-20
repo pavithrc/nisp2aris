@@ -109,7 +109,7 @@
     </xsl:if>
     <xsl:if test="$show.nisp.applicability = 1">
       <xsl:call-template name="create.AttrDef">
-        <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='applicability']/@aris.type"/>
+        <xsl:with-param name="type" select="'AT_DESC'"/>
         <xsl:with-param name="value" select="applicability"/>
       </xsl:call-template>
     </xsl:if>
@@ -153,7 +153,7 @@
     </xsl:if>
     <xsl:if test="$show.nisp.title = 1">
       <xsl:call-template name="create.AttrDef">
-        <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='title']/@aris.type"/>
+        <xsl:with-param name="type" select="'AT_NAME_FULL'"/>
         <xsl:with-param name="value" select="document/@title"/>
       </xsl:call-template>
     </xsl:if>
@@ -171,7 +171,7 @@
     </xsl:if>
     <xsl:if test="$show.nisp.applicability = 1">
       <xsl:call-template name="create.AttrDef">
-        <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='applicability']/@aris.type"/>
+        <xsl:with-param name="type" select="'AT_DESC'"/>
         <xsl:with-param name="value" select="applicability"/>
       </xsl:call-template>
     </xsl:if>
@@ -183,6 +183,7 @@
     </xsl:if>
   </ObjDef>
 </xsl:template>
+
 
 <xsl:template match="profile">
   <ObjDef TypeNum="OT_NW_PROT" SymbolNum="ST_PROTOCOL">
@@ -215,7 +216,7 @@
     </xsl:if>
     <xsl:if test="$show.nisp.title = 1">
       <xsl:call-template name="create.AttrDef">
-        <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='title']/@aris.type"/>
+        <xsl:with-param name="type" select="'AT_NAME_FULL'"/>
         <xsl:with-param name="value" select="document/@title"/>
       </xsl:call-template>
     </xsl:if>
@@ -233,7 +234,7 @@
     </xsl:if>
     <xsl:if test="$show.nisp.applicability = 1">
       <xsl:call-template name="create.AttrDef">
-        <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='applicability']/@aris.type"/>
+        <xsl:with-param name="type" select="'AT_DESC'"/>
         <xsl:with-param name="value" select="applicability"/>
       </xsl:call-template>
     </xsl:if>
