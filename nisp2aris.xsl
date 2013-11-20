@@ -10,8 +10,6 @@
 <xsl:output indent="yes" doctype-system="ARIS-Export.dtd"/>
 
 
-<!-- Context parameters -->
-<xsl:param name="contributor" select="'FMT-LU-VT06'"/>
 
 <!-- Standard and Profile attributes -->
 
@@ -36,7 +34,7 @@
 
 <xsl:param name="use.secondary.language" select="0"/>
 
-<xsl:param name="secondary.alt.lang.locale" select="'1033'"/>   <!-- USen -->
+<xsl:param name="secondary.alt.lang.locale" select="'1033'"/>   <!-- DKda -->
 <xsl:param name="secondary.alt.lang.codepage" select="'1252'"/> <!-- USen -->
 <xsl:param name="secondary.alt.lang.languageName" select="'English'"/>
 
@@ -51,13 +49,16 @@
                OutPrecision="3" ClipPrecision="2" Quality="1" PitchAndFamily="0"
                Color="0"/>      
     </Language>
-    <Group Group.ID="Group.Root">
-     
+    <Group Group.ID="Group.Root">     
+
+      <!-- Here we need to add an extra folder representing the specific import  -->
+
       <xsl:apply-templates select="taxonomy/servicearea"/>
       <xsl:apply-templates select="records/*"/>
     </Group>
   </AML>
 </xsl:template>
+
 
 <xsl:template match="standard">
   <ObjDef TypeNum="OT_NW_PROT" SymbolNum="ST_STANDARD">
@@ -90,7 +91,7 @@
     </xsl:if>
     <xsl:if test="$show.nisp.title = 1">
       <xsl:call-template name="create.AttrDef">
-        <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='title']/@aris.type"/>
+        <xsl:with-param name="type" select="'AT_NAME_FULL'"/>
         <xsl:with-param name="value" select="document/@title"/>
       </xsl:call-template>
     </xsl:if>
