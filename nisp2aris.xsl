@@ -394,5 +394,24 @@
 </xsl:template>
 
 
+<!-- Handle Docbook elements -->
+
+
+<xsl:template match="*">
+  <xsl:message terminate="yes">
+    <xsl:text>Element </xsl:text>
+    <xsl:value-of select="local-name(.)"/>
+    <xsl:text> in namespace '</xsl:text>
+    <xsl:value-of select="namespace-uri(.)"/>
+    <xsl:text>' encountered</xsl:text>
+    <xsl:if test="parent::*">
+      <xsl:text> in </xsl:text>
+      <xsl:value-of select="name(parent::*)"/>
+    </xsl:if>
+    <xsl:text>, but no template matches.</xsl:text>
+  </xsl:message>
+</xsl:template>
+
+
 </xsl:stylesheet>
 
