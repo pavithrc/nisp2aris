@@ -3,19 +3,16 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:saxon="http://saxon.sf.net"
                 xmlns:date="http://exslt.org/dates-and-times"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
                 extension-element-prefixes="date"
                 version='2.0'
-                exclude-result-prefixes="saxon">
+                exclude-result-prefixes="saxon date xs">
 
 <xsl:output indent="yes" doctype-system="ARIS-Export.dtd"/>
 
 
 
-<!-- Standard and Profile attributes -->
-
-<xsl:param name="nisp.attributes.file" select="'nisp-attributes-map.xml'"/>
-
-<xsl:param name="nisp.attributes.map" select="document($nisp.attributes.file)"/>
+<!-- What standard and profile attributes should be displayed -->
 
 <xsl:param name="show.nisp.id" select="1"/>
 <xsl:param name="show.nisp.orgid" select="1"/>
@@ -26,17 +23,32 @@
 <xsl:param name="show.nisp.applicability" select="1"/>
 <xsl:param name="show.nisp.status" select="1"/>
 
-<!-- Language parameters -->
 
-<xsl:param name="primary.lang.locale" select="'1033'"/>    <!-- USen -->
-<xsl:param name="primary.lang.codepage" select="'1252'"/>  <!-- USen -->
+<!-- Use multiple language parameter -->
+
+<xsl:param name="use.secondary.language" select="1"/>
+
+<!-- By default we use US English as primary and Danish as secondary language -->
+
+<xsl:param name="primary.lang.locale" select="'1033'"/>  <!-- LCID: us-en -->
+<xsl:param name="primary.lang.codepage" select="'1252'"/>  <!-- Windows-1252 Latin Codepage -->
 <xsl:param name="primary.lang.languageName" select="'English'"/>
 
-<xsl:param name="use.secondary.language" select="0"/>
+<xsl:param name="secondary.alt.lang.locale" select="'1030'"/>  <!-- LCID: da -->
+<xsl:param name="secondary.alt.lang.codepage" select="'1252'"/> <!-- Windows-1252 Latin Codepage -->
+<xsl:param name="secondary.alt.lang.languageName" select="'Danish'"/>
 
-<xsl:param name="secondary.alt.lang.locale" select="'1033'"/>   <!-- DKda -->
-<xsl:param name="secondary.alt.lang.codepage" select="'1252'"/> <!-- USen -->
-<xsl:param name="secondary.alt.lang.languageName" select="'English'"/>
+
+<!-- NISP to ARIS attribute mapping -->
+
+<xsl:param name="nisp.attributes.file" select="'nisp-attributes-map.xml'"/>
+
+<xsl:param name="nisp.attributes.map" select="document($nisp.attributes.file)"/>
+
+
+<xsl:variable name="now" select="translate(xs:string(current-dateTime()), ':', '.')"/>
+
+<xsl:variable name="dt" select="substring($now, 1, 16)"/>
 
 
 <xsl:template match="standards">
@@ -49,12 +61,42 @@
                OutPrecision="3" ClipPrecision="2" Quality="1" PitchAndFamily="0"
                Color="0"/>      
     </Language>
-    <Group Group.ID="Group.Root">     
-
-      <!-- Here we need to add an extra folder representing the specific import  -->
-
-      <xsl:apply-templates select="taxonomy/servicearea"/>
-      <xsl:apply-templates select="records/*"/>
+    <xsl:if test="$use.secondary.language = 1">
+      <Language LocaleId="{$secondary.alt.lang.locale}" Codepage="{$secondary.alt.lang.codepage}">
+        <LanguageName><xsl:value-of select="$secondary.alt.lang.languageName"/></LanguageName>
+        <LogFont FaceName="Arial" Height="-13" Width="0" Escapement="0" Orientation="0"
+                 Weight="400" Italic="NO" Underline="NO" StrikeOut="NO" CharSet="0"
+                 OutPrecision="3" ClipPrecision="2" Quality="1" PitchAndFamily="0"
+                 Color="0"/>      
+      </Language>
+    </xsl:if>
+    <Group Group.ID="Group.Root">
+      <Group Group.ID="Group.import-{$dt}">
+        <xsl:call-template name="create.AttrDef">
+          <xsl:with-param name="type" select="'AT_NAME'"/>
+          <xsl:with-param name="value" select="concat('NISP Import ', $dt)"/>
+        </xsl:call-template>
+        <Group Group.ID="Group.artifacts-{$dt}">
+          <xsl:call-template name="create.AttrDef">
+            <xsl:with-param name="type" select="'AT_NAME'"/>
+            <xsl:with-param name="value" select="'Artifacts'"/>
+          </xsl:call-template>
+          <xsl:apply-templates select="records/*"/>
+        </Group>  
+        <Group Group.ID="Group.taxonomy-{$dt}">
+          <xsl:call-template name="create.AttrDef">
+            <xsl:with-param name="type" select="'AT_NAME'"/>
+            <xsl:with-param name="value" select="'Taxonomy'"/>
+          </xsl:call-template>
+          <xsl:apply-templates select="taxonomy/servicearea"/>
+        </Group>  
+        <Group Group.ID="Group.relations-{$dt}">
+          <xsl:call-template name="create.AttrDef">
+            <xsl:with-param name="type" select="'AT_NAME'"/>
+            <xsl:with-param name="value" select="'Relations'"/>
+          </xsl:call-template>
+        </Group>
+      </Group>
     </Group>
   </AML>
 </xsl:template>
@@ -390,6 +432,16 @@
 	</StyledElement>      
       </StyledElement>
     </AttrValue>
+    <xsl:if test="$use.secondary.language = 1">
+      <AttrValue LocaleId="{$secondary.alt.lang.locale}">
+        <StyledElement>
+          <Paragraph Alignment="UNDEFINED" Indent="0"/>
+          <StyledElement>
+            <PlainText TextValue="{$value}"/>
+	  </StyledElement>      
+        </StyledElement>
+      </AttrValue>
+    </xsl:if>
   </AttrDef>
 </xsl:template>
 
