@@ -12,9 +12,7 @@
         heiracical structure, and this artificial construct
         significantly complicates writing XSLT stylesheets.
 
-     2. Create connection elements which represents the relationship
-        between profile and profiles/standard and between
-        "coverstandards" and standards.
+     2. Remove all retired/rejected standards
 
      3. All coverstandards (i.e. standards which have a refstandard
         descendant) will be embedded in a coverstandard element.
@@ -58,8 +56,19 @@
 <xsl:template match="lists"/>
 
 
+
+<!-- ==========================================
+     (2) Remove all retired/rejected standards
+     ==========================================
+-->
+
+
+<xsl:template match="standard[statue/@mode != 'unknown']"/> 
+
+
+
 <!-- =================================================================
-     (2) Replace standard element with coverstandard, if the standard
+     (3) Replace standard element with coverstandard, if the standard
          is a coverstandard
      =================================================================
 -->
@@ -72,38 +81,7 @@
 </xsl:template>
 
 
-<!-- =======================================================
-     (3) Copy all standards/profiles and create conntection
-         (relation) elements
-     =======================================================
--->
 
-<xsl:template match="records">
-  <records>
-    <xsl:apply-templates/>
-    <xsl:apply-templates select=".//refstandard"/>
-  </records>
-</xsl:template> 
-
-<!-- Create relationship between profiles and profiles/standards -->
-
-<xsl:template match="parts/refstandard">
-  <connection from="{@refid}" relation="is-part-of">
-    <xsl:attribute name="to">
-      <xsl:value-of select="ancestor::profile/@id"/>
-    </xsl:attribute>
-  </connection>
-</xsl:template>
-
-<!-- Create relationship between coverstandards and standards -->
-
-<xsl:template match="substandards/refstandard">
-  <connection from="{@refid}" relation="is-sub-standard-of">
-    <xsl:attribute name="to">
-      <xsl:value-of select="ancestor::standard/@id"/>
-    </xsl:attribute>
-  </connection>
-</xsl:template>
 
 <!-- ===================
        Copy the rest 

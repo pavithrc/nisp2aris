@@ -94,6 +94,8 @@
             <xsl:with-param name="type" select="'AT_NAME'"/>
             <xsl:with-param name="value" select="'Relations'"/>
           </xsl:call-template>
+          <xsl:apply-templates select="coverstandard" mode="relations"/>
+          <xsl:apply-templates select="profile" mode="relations"/>
         </Group>
       </Group>
     </Group>
@@ -111,6 +113,10 @@
     <xsl:call-template name="create.AttrDef">
       <xsl:with-param name="type" select="'AT_NAME'"/>
       <xsl:with-param name="value" select="@tag"/>
+    </xsl:call-template>
+    <xsl:call-template  name="create.AttrDef">
+      <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='type']/@aris.type"/>
+      <xsl:with-param name="value" select="'S'"/>
     </xsl:call-template>
     <xsl:if test="$show.nisp.id = 1">
       <xsl:call-template name="create.AttrDef">
@@ -163,16 +169,23 @@
   </ObjDef>
 </xsl:template>
 
+
 <xsl:template match="coverstandard">
-  <ObjDef TypeNum="OT_NW_PROT" SymbolNum="ST_PROTOCOL">
+  <ObjDef TypeNum="OT_NW_PROT" SymbolNum="ST_STANDARD">
     <xsl:attribute name="ObjDef.ID">
       <xsl:text>ObjDef.</xsl:text>
       <xsl:value-of select="@id"/>
     </xsl:attribute>
+    <xsl:if test="$use.assignment =1">
+    </xsl:if>
     <GUID><xsl:value-of select="uuid"/></GUID>
     <xsl:call-template name="create.AttrDef">
       <xsl:with-param name="type" select="'AT_NAME'"/>
       <xsl:with-param name="value" select="concat(@tag, ' (CS)')"/>
+    </xsl:call-template>
+    <xsl:call-template  name="create.AttrDef">
+      <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='type']/@aris.type"/>
+      <xsl:with-param name="value" select="'CS'"/>
     </xsl:call-template>
     <xsl:if test="$show.nisp.id = 1">
       <xsl:call-template name="create.AttrDef">
@@ -227,7 +240,7 @@
 
 
 <xsl:template match="profile">
-  <ObjDef TypeNum="OT_NW_PROT" SymbolNum="ST_PROTOCOL">
+  <ObjDef TypeNum="OT_NW_PROT" SymbolNum="ST_STANDARD">
     <xsl:attribute name="ObjDef.ID">
       <xsl:text>ObjDef.</xsl:text>
       <xsl:value-of select="@id"/>
@@ -236,6 +249,10 @@
     <xsl:call-template name="create.AttrDef">
       <xsl:with-param name="type" select="'AT_NAME'"/>
       <xsl:with-param name="value" select="concat(@tag, ' (P)')"/>
+    </xsl:call-template>
+    <xsl:call-template  name="create.AttrDef">
+      <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='type']/@aris.type"/>
+      <xsl:with-param name="value" select="'P'"/>
     </xsl:call-template>
     <xsl:if test="$show.nisp.id = 1">
       <xsl:call-template name="create.AttrDef">
@@ -287,9 +304,6 @@
     </xsl:if>
   </ObjDef>
 </xsl:template>
-
-
-<xsl:template match="connection"/>
 
 
 <xsl:template match="servicearea|subarea|servicecategory|category|subcategory|node">
@@ -344,13 +358,12 @@
 <xsl:template match="sp-list"/>
 
 
-<!-- Visual Objects -->
+<!-- Create Models with Object Occurences  -->
 
 
 <xsl:template match="sp-list" mode="visual">
   <xsl:apply-templates select=".//select" mode="visual"/>
 </xsl:template>
-
 
 
 <xsl:template match="select" mode="visual">
@@ -367,7 +380,7 @@
 </xsl:template>
 
 
-<xsl:template match="standard" mode="visual">
+<xsl:template match="standard|coverstandard|profile" mode="visual">
   <xsl:param name="vid"/>
   <ObjOcc SymbolNum="ST_STANDARD">
     <xsl:attribute name="ObjOcc.ID">
@@ -387,19 +400,14 @@
   </ObjOcc>
 </xsl:template>
 
-
+<!--
 <xsl:template match="coverstandard|profile" mode="visual">
   <xsl:param name="vid"/>
-
-  <xsl:param name="this.id" select="@id"/>
-
-  <ObjOcc SymbolNum="ST_PROTOCOL">
+  <ObjOcc SymbolNum="ST_STANDARD">
     <xsl:attribute name="ObjOcc.ID">
       <xsl:text>ObjOcc.</xsl:text>
       <xsl:value-of select="@id"/>
       <xsl:text>-</xsl:text>
-      <!-- Since a coverstandard may occur in multiple models, we need to add something unique
-      to the ID for the object occurrence ID (ObjOcc.ID) -->
       <xsl:value-of select="$vid"/> 
     </xsl:attribute>
     <xsl:attribute name="ObjDef.IdRef">
@@ -409,13 +417,20 @@
     <ExternalGUID>4420106e-4773-11e3-4df7-00155d5f8f19</ExternalGUID>
     <AttrOcc AttrTypeNum="AT_NAME" Port="CENTER" OrderNum="0" Alignment="CENTER" SymbolFlag="TEXT"/>
   </ObjOcc>
-  <xsl:apply-templates select="../connection[@to=$this.id]" mode="visual"/>
 </xsl:template>
+-->
 
-<xsl:template match="connection" mode="visual">
-  <xsl:variable name="part" select="@from"/>
-  <xsl:apply-templates select="../*[@id=$part]" mode="visual"/>
-</xsl:template>
+<!-- Create relationship models -->
+
+
+<xsl:template match="coverstandard" mode="relations"/>
+
+
+<xsl:template match="profile" mode="relations"/>
+
+
+
+<!-- Named templates -->
 
 
 <xsl:template name="create.AttrDef">
