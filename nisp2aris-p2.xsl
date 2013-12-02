@@ -23,6 +23,10 @@
         standards, we need to identify all coverstandards which 
         should be represented by the ARIS protocol element.
 
+
+     Input: The NISP Standard database
+     Output: 
+
      ================================================================
 
      Copyright (c) 2013, Jens Stavnstrup/DALO <stavnstrup@mil.dk>
@@ -30,7 +34,12 @@
 -->
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:saxon="http://saxon.sf.net/"
+                extension-element-prefixes="saxon"
                 version="2.0">
+
+<xsl:output indent="yes" saxon:next-in-chain="nisp2aris-p3.xsl"/>
+
 
 <!-- ====================================
      (1) Merge sp-list into the taxonomy
