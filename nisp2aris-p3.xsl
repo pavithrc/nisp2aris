@@ -22,6 +22,9 @@
 <xsl:param name="show.nisp.applicability" select="1"/>
 <xsl:param name="show.nisp.status" select="1"/>
 
+<!-- Use assignments -->
+
+<xsl:param name="use.assignment" select="0"/>
 
 <!-- Use multiple language parameter -->
 
@@ -94,8 +97,8 @@
             <xsl:with-param name="type" select="'AT_NAME'"/>
             <xsl:with-param name="value" select="'Relations'"/>
           </xsl:call-template>
-          <xsl:apply-templates select="coverstandard" mode="relations"/>
-          <xsl:apply-templates select="profile" mode="relations"/>
+          <xsl:apply-templates select="records/coverstandard" mode="relations"/>
+          <xsl:apply-templates select="records/profile" mode="relations"/>
         </Group>
       </Group>
     </Group>
@@ -177,6 +180,9 @@
       <xsl:value-of select="@id"/>
     </xsl:attribute>
     <xsl:if test="$use.assignment =1">
+      <xsl:attribute name="LinkedModels.IdRefs">
+        <xsl:value-of select="concat('Relations.', @id)"/>
+      </xsl:attribute>
     </xsl:if>
     <GUID><xsl:value-of select="uuid"/></GUID>
     <xsl:call-template name="create.AttrDef">
@@ -245,6 +251,11 @@
       <xsl:text>ObjDef.</xsl:text>
       <xsl:value-of select="@id"/>
     </xsl:attribute>
+    <xsl:if test="$use.assignment =1">
+      <xsl:attribute name="LinkedModels.IdRefs">
+        <xsl:value-of select="concat('Relations.', @id)"/>
+      </xsl:attribute>
+    </xsl:if>
     <GUID><xsl:value-of select="uuid"/></GUID>
     <xsl:call-template name="create.AttrDef">
       <xsl:with-param name="type" select="'AT_NAME'"/>
@@ -358,7 +369,7 @@
 <xsl:template match="sp-list"/>
 
 
-<!-- Create Models with Object Occurences  -->
+<!-- Create models with occurence objects  -->
 
 
 <xsl:template match="sp-list" mode="visual">
@@ -423,11 +434,47 @@
 <!-- Create relationship models -->
 
 
-<xsl:template match="coverstandard" mode="relations"/>
+<xsl:template match="coverstandard|profile" mode="relations">
+  <Model Model.Type="MT_DEFENSE" AttrHandling="BREAKATTR" CxnMode="ONLYVERTICAL" GridUse="YES"
+                    GridSize="50" Scale="100" PrintScale="100" BackColor="16777215"
+                    CurveRadius="0" ArcRadius="0"  LastUpdated="06:57:03.000;11/06/2013">
+    <xsl:attribute name="Model.ID">
+      <xsl:text>Relations.</xsl:text>
+      <xsl:value-of select="@id"/>
+    </xsl:attribute>
+    <Flag>4c0</Flag>
+    <TypeGUID>f4e31b30-3378-11de-7dee-000c29c116d3</TypeGUID>
+    <TemplateGUID>2ed57d10-68c8-11d7-5d85-000bcd25c95f</TemplateGUID>
+    <Lane Lane.Type="LT_DEFAULT" Orientation="VERTICAL" StartBorder="0" EndBorder="50000">
+      <Pen Color="0" Style="0" Width="0"/>
+      <Brush Color="7f7f7f" Color2="0" BrushType="SOLID"/>
+      <xsl:call-template name="create.AttrDef">
+        <xsl:with-param name="type" select="'AT_NAME'"/>
+        <xsl:with-param name="value" select="'.'"/>
+      </xsl:call-template>
+    </Lane>
+    <Lane Lane.Type="LT_DEFAULT" Orientation="HORIZONTAL" StartBorder="0" EndBorder="50000">
+      <Pen Color="0" Style="0" Width="0"/>
+      <Brush Color="7f7f7f" Color2="0" BrushType="SOLID"/>
+      <xsl:call-template name="create.AttrDef">
+        <xsl:with-param name="type" select="'AT_NAME'"/>
+        <xsl:with-param name="value" select="'.'"/>
+      </xsl:call-template>
+    </Lane>
+    <xsl:call-template name="create.AttrDef">
+      <xsl:with-param name="type" select="'AT_NAME'"/>
+      <xsl:with-param name="value" select="concat('Relations.',@id)"/>
+    </xsl:call-template>
+    <xsl:apply-templates select=".//refstandard" mode="relations"/>
+  </Model> 
+</xsl:template>
 
 
-<xsl:template match="profile" mode="relations"/>
 
+<xsl:template match="refstandard" mode="relations">
+  <xsl:variable name="rid" select="@refid"/> 
+  <xsl:apply-templates select="/standards/records/*[@id=$rid]" mode="visual"/>
+</xsl:template>
 
 
 <!-- Named templates -->
