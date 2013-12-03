@@ -187,7 +187,10 @@
     <GUID><xsl:value-of select="uuid"/></GUID>
     <xsl:call-template name="create.AttrDef">
       <xsl:with-param name="type" select="'AT_NAME'"/>
+<!--
       <xsl:with-param name="value" select="concat(@tag, ' (CS)')"/>
+-->
+      <xsl:with-param name="value" select="@tag"/>
     </xsl:call-template>
     <xsl:call-template  name="create.AttrDef">
       <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='type']/@aris.type"/>
@@ -259,7 +262,10 @@
     <GUID><xsl:value-of select="uuid"/></GUID>
     <xsl:call-template name="create.AttrDef">
       <xsl:with-param name="type" select="'AT_NAME'"/>
+      <xsl:with-param name="value" select="@tag"/>
+<!--
       <xsl:with-param name="value" select="concat(@tag, ' (P)')"/>
+-->
     </xsl:call-template>
     <xsl:call-template  name="create.AttrDef">
       <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='type']/@aris.type"/>
@@ -408,6 +414,9 @@
     </xsl:attribute>
     <ExternalGUID>4420106e-4773-11e3-4df7-00155d5f8f19</ExternalGUID>
     <AttrOcc AttrTypeNum="AT_NAME" Port="CENTER" OrderNum="0" Alignment="CENTER" SymbolFlag="TEXT"/>
+    <AttrOcc AttrTypeNum="{$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='type']/@aris.type}"
+             Port="LOWER_MIDDLE" OrderNum="0" Alignment="CENTER" SymbolFlag="TEXT"/>
+             
   </ObjOcc>
 </xsl:template>
 
