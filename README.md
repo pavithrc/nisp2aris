@@ -61,6 +61,11 @@ Files
 * README.md - This file (Pandoc Markdown sources)
 * README.html - This file in HTML5
 
+utils/
+
+* removefonts.xsl - Remove fonts declaration for ARIS export file (make export significant smaller)
+
+
 TODO
 =====
 
