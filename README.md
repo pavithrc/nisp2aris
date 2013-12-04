@@ -22,7 +22,7 @@ Transformation of the NISP standard database `standards.xml` to a ARIS
 Markup Language (AML) document, which can be imported into the ARIS
 repository is done by running the command:
 
-~~~ {.shell}
+~~~ {.Bash}
 
     saxon -o nisp-as-aris-aml.xml standards.xml nis2aris.xsl
 
@@ -57,7 +57,7 @@ and profiles should be imported, the first transformation step can be
 skipped by running the command:
 
 
-~~~ {.shell}
+~~~ {.Bash}
 
     saxon -o nisp-as-aris-aml.xml standards.xml nis2aris-p2.xsl
 
@@ -123,7 +123,23 @@ and profiles are uniquely identified once by the BISP uuid element and
 any subsequent import of the NISP database will not create new uuid
 for standards and profiles.
 
+Each ARIS object representing an NISP standard or profile will thefore use the value NISP uuid element in its GUID element.
+
+Some NISP element and attributes are representaed using standard ARIS attributes, they are
+
+| NISP | ARIS | 
+|------|------|
+| tag | AT_NAME |
+title element
+description element
+
+: mapping bewtween NISP elements/attributes and  
+
 TBD
+
+
+
+
 
 
 # Importing the the NISP
@@ -145,7 +161,7 @@ The files which are part of the distribution are
 
 
 
-Problems
+Cavecats
 ========
 
 
