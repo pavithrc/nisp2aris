@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+
+
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:date="http://exslt.org/dates-and-times"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -8,7 +10,6 @@
                 exclude-result-prefixes="date xs">
 
 <xsl:output indent="yes" doctype-system="ARIS-Export.dtd"/>
-
 
 
 <!-- What standard and profile attributes should be displayed -->
@@ -52,6 +53,8 @@
 
 <xsl:variable name="dt" select="substring($now, 1, 16)"/>
 
+
+<!-- Create main ARIS groups in the NISP import -->
 
 <xsl:template match="standards">
   <AML>
@@ -104,6 +107,11 @@
     </Group>
   </AML>
 </xsl:template>
+
+
+<!-- The following three templates are used to create ARIS objects in the Artifacts group.
+
+-->
 
 
 <xsl:template match="standard">
@@ -187,9 +195,6 @@
     <GUID><xsl:value-of select="uuid"/></GUID>
     <xsl:call-template name="create.AttrDef">
       <xsl:with-param name="type" select="'AT_NAME'"/>
-<!--
-      <xsl:with-param name="value" select="concat(@tag, ' (CS)')"/>
--->
       <xsl:with-param name="value" select="@tag"/>
     </xsl:call-template>
     <xsl:call-template  name="create.AttrDef">
@@ -263,9 +268,6 @@
     <xsl:call-template name="create.AttrDef">
       <xsl:with-param name="type" select="'AT_NAME'"/>
       <xsl:with-param name="value" select="@tag"/>
-<!--
-      <xsl:with-param name="value" select="concat(@tag, ' (P)')"/>
--->
     </xsl:call-template>
     <xsl:call-template  name="create.AttrDef">
       <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='type']/@aris.type"/>
@@ -323,6 +325,9 @@
 </xsl:template>
 
 
+<!-- Create the NISP taxonomy -->
+
+
 <xsl:template match="servicearea|subarea|servicecategory|category|subcategory|node">
   <Group>
     <xsl:attribute name="Group.ID">
@@ -375,7 +380,7 @@
 <xsl:template match="sp-list"/>
 
 
-<!-- Create models with occurence objects  -->
+<!-- Create occurence objects in Models -->
 
 
 <xsl:template match="sp-list" mode="visual">
@@ -420,25 +425,6 @@
   </ObjOcc>
 </xsl:template>
 
-<!--
-<xsl:template match="coverstandard|profile" mode="visual">
-  <xsl:param name="vid"/>
-  <ObjOcc SymbolNum="ST_STANDARD">
-    <xsl:attribute name="ObjOcc.ID">
-      <xsl:text>ObjOcc.</xsl:text>
-      <xsl:value-of select="@id"/>
-      <xsl:text>-</xsl:text>
-      <xsl:value-of select="$vid"/> 
-    </xsl:attribute>
-    <xsl:attribute name="ObjDef.IdRef">
-      <xsl:text>ObjDef.</xsl:text>
-      <xsl:value-of select="@id"/>
-    </xsl:attribute>
-    <ExternalGUID>4420106e-4773-11e3-4df7-00155d5f8f19</ExternalGUID>
-    <AttrOcc AttrTypeNum="AT_NAME" Port="CENTER" OrderNum="0" Alignment="CENTER" SymbolFlag="TEXT"/>
-  </ObjOcc>
-</xsl:template>
--->
 
 <!-- Create relationship models -->
 
@@ -486,7 +472,7 @@
 </xsl:template>
 
 
-<!-- Named templates -->
+<!-- Utility template -->
 
 
 <xsl:template name="create.AttrDef">
@@ -516,7 +502,7 @@
 </xsl:template>
 
 
-<!-- Handle Docbook elements -->
+<!-- Handle Docbook elements - currently unused -->
 
 
 <xsl:template match="*">
