@@ -6,6 +6,10 @@
      not through a select statement marked as mandatory, emerging
      or fading.
 
+     N.B. When we recursively traverse the standard/profiles to identify
+     sub-parts we might unintentional create duplicate records, which
+     must be deleted in the next step.
+
      N.B. If we want to import all standards, we can ignore this
      step.
 

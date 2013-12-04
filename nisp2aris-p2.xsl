@@ -22,6 +22,8 @@
         should be represented by the ARIS protocol element.
 
 
+     4. Remove duplicate standards
+
      Input: The NISP Standard database
      Output: 
 
@@ -36,7 +38,9 @@
                 extension-element-prefixes="saxon"
                 version="2.0">
 
+
 <xsl:output indent="yes" saxon:next-in-chain="nisp2aris-p3.xsl"/>
+
 
 
 <!-- ====================================
@@ -81,6 +85,15 @@
 </xsl:template>
 
 
+
+<!-- =================================================================
+     (4) Remove duplicate standards and profiles
+     =================================================================
+-->
+
+<xsl:template match="standard[not(@id=preceding-sibling::standard/@id)]" priority="1"/>
+
+<xsl:template match="profile[not(@id=preceding-sibling::profile/@id)]" priority="1"/>
 
 
 <!-- ===================
