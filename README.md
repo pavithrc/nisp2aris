@@ -1,6 +1,8 @@
+<!--
 % Importing NISP into an ARIS/NAF3 architecture repository
 % Jens Stavnstrup \<stavnstrup@mil.dk\>
 % 4. december 2013
+-->
 
 # Introduction
 
@@ -51,7 +53,7 @@ in the three files: `nisp2aris.xsl`, `nisp2aris-p2.xsl` and
 The stylesheets are described in more detail in comments embedded in each stylesheet.
 
 If all standards and profiles, except retired and rejected standards
-and profiles, should be imported the first transformation step can be
+and profiles should be imported, the first transformation step can be
 skipped by running the command:
 
 
