@@ -22,7 +22,7 @@ Transformation of the NISP standard database `standards.xml` to a ARIS
 Markup Language (AML) document, which can be imported into the ARIS
 repository is done by running the command:
 
-~~~
+~~~ {.shell}
 
     saxon -o nisp-as-aris-aml.xml standards.xml nis2aris.xsl
 
@@ -57,7 +57,7 @@ and profiles should be imported, the first transformation step can be
 skipped by running the command:
 
 
-~~~
+~~~ {.shell}
 
     saxon -o nisp-as-aris-aml.xml standards.xml nis2aris-p2.xsl
 
@@ -126,20 +126,20 @@ for standards and profiles.
 TBD
 
 
-# Importing the NISP into the ARIS repository
+# Importing the the NISP
 
 TBD
 
 # Files
 
-The files which are part of the distribution ar
+The files which are part of the distribution are
 
 * ARIS-Export.dtd - DTD for the ARIS XML export format (version 7.2.4)
 * nisp2aris.xsl - Transformation of NISP to ARIS part 1
 * nisp2aris-p2.xsl - Transformation of NISP to ARIS part 2
 * nisp2aris-p3.xsl - Transformation of NISP to ARIS part 3
 * nisp-attribute-map - Mapping between NISP attributes and ARIS attributes types
-* params.xsl - User defined parameters used to configure the the transformation
+* params.xsl - User defined configuration parameters
 * README.md - This file (Pandoc Markdown sources)
 * README.html - This file in HTML5
 
