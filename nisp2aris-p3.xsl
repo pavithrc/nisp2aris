@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<!-- ================================================================
+     This stylesheet create the AML representation of the NISP database.
+     The document consists of the parts:
+
+
+     1. Creation of an artifact directory with NISP standard represented
+        as ARIS definition objects (ARIS protocol objects visualized with
+        the ARIS standard sysmbol type. In each ARIS standard object, and
+        number of attributes are defined and poulated with data from
+        the NISP DB. See the README file for details. 
+
+     2. Creation of a relations directory wherem relation between parent
+        and child standards and profiles are described.
+
+     3. Create a the technical service part of the C3 taxonomy represented
+        as ARIS groups. The binding of standard and the taxonomy is
+        represented in the NISP DB by the sp-views an in the AML version as
+        an ARIS model.
+
+     ================================================================
+
+     Copyright (c) 2013, Jens Stavnstrup/DALO <stavnstrup@mil.dk>
+
+-->
 
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
