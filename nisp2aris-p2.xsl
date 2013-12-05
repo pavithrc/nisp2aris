@@ -91,9 +91,9 @@
      =================================================================
 -->
 
-<xsl:template match="standard[not(@id=preceding-sibling::standard/@id)]" priority="1"/>
+<xsl:template match="standard[@id=preceding-sibling::standard/@id]" priority="1"/>
 
-<xsl:template match="profile[not(@id=preceding-sibling::profile/@id)]" priority="1"/>
+<xsl:template match="profile[@id=preceding-sibling::profile/@id]" priority="1"/>
 
 
 <!-- ===================
