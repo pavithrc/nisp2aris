@@ -112,30 +112,43 @@ file `params.xsl`.
 ## Standard attributes
 
 The properties of a standard or profile are in NISP represented as XML
-elements and attributes. Some of the elements and attributes are the
-the AML version of NISP used to describe the standard and profile.
+elements and attributes. Some of these elements and attributes are
+usefull for the architect and are therefore imported as attributes to the
+ARIS/NAF3 standard element.
 
-All elements in an ARIS repository (group and objects) are asigned an
-UUID at creation time. If an element in an AML file do not have an
-UUID during import, a new UUID is created automatically. We utilize
-this property of the import process to ensure, that all NISP standard
-and profiles are uniquely identified once by the BISP uuid element and
-any subsequent import of the NISP database will not create new uuid
-for standards and profiles.
 
-Each ARIS object representing an NISP standard or profile will thefore use the value NISP uuid element in its GUID element.
+All elements in an ARIS repository (group and objects) are given
+universaly unique identifier (UUID) at creation time.  If an imported
+element in an AML file do not have an UUID one is created
+automatically. We utilize this property of the import process to
+ensure, that all NISP standard and profiles are uniquely identified
+once by the NISP uuid element and any subsequent import of the NISP
+database will not create new uuid for standards and profiles.
 
-Some NISP element and attributes are representaed using standard ARIS attributes, they are
 
-| NISP | ARIS | 
-|------|------|
-| tag | AT_NAME |
-title element
-description element
+Some NISP element and attributes are representaed using standard ARIS
+attributes, they are
 
-: mapping bewtween NISP elements/attributes and  
+| ARIS name | NISP XML name | ARIS Type | 
+|-----------|---------------|-----------|
+| - | @tag | AT_NAME |
+| Full Name | @title | AT_FULL_NAME |
+| Description/Definition | <applicability> | AT_DESC |
 
-TBD
+: mapping between NISP elements/attributes and ARIS types 
+
+
+
+| ARIS name | NISP name |
+|-----------|-----------|
+| NISP ID | @id |
+| NISP PUBNUM | @pubnum |
+| NISP TYPE | - |
+| NISP DATE | @date |
+| NISP VERSION | @version |
+| NISP Std Organisation | @orgid |
+
+
 
 
 
