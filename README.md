@@ -23,9 +23,7 @@ Markup Language (AML) document, which can be imported into the ARIS
 repository is done by running the command:
 
 ~~~ {.Bash}
-
     saxon -o nisp-as-aris-aml.xml standards.xml nis2aris.xsl
-
 ~~~
 
 
@@ -58,9 +56,7 @@ skipped by running the command:
 
 
 ~~~ {.Bash}
-
     saxon -o nisp-as-aris-aml.xml standards.xml nis2aris-p2.xsl
-
 ~~~
 
 
@@ -139,6 +135,8 @@ attributes, they are
 
 
 
+
+
 | ARIS name | NISP XML name |
 |-----------|---------------|
 | NISP ID | @id |
@@ -150,8 +148,25 @@ attributes, they are
 
 
 
+~~~ {.xml}
+<?xml version="1.0"?>
+<!-- Map between NISP attribute types and similar attribute types
+     defined your ARIS filter. -->
 
-
+<!-- The values below are implemented by the Danish extended 
+     NAF3 filter. Replace with your own, as these values will
+     differ for each ARIS installation -->
+ 
+<nisp-attributes>
+  <nkey nisp.attribute="id"      aris.type="db7dbe50-0162-11e2-4df7-00155d5f8f19" aris.name="NISP ID"/>
+  <nkey nisp.attribute="orgid"   aris.type="0eb1f570-0163-11e2-4df7-00155d5f8f19" aris.name="NISP Std Organisation"/>
+  <nkey nisp.attribute="pubnum"  aris.type="1d2ee9a0-0163-11e2-4df7-00155d5f8f19" aris.name="NISP PUBNUM"/>
+  <nkey nisp.attribute="date"    aris.type="c8d548e0-0162-11e2-4df7-00155d5f8f19" aris.name="NISP DATE"/>
+  <nkey nisp.attribute="version" aris.type="30006ae0-0163-11e2-4df7-00155d5f8f19" aris.name="NISP VERSION"/>
+  <nkey nisp.attribute="status"  aris.type="3b35d530-0163-11e2-4df7-00155d5f8f19" aris.name="NISP Status"/>
+  <nkey nisp.attribute="type"    aris.type="45f5e870-0163-11e2-4df7-00155d5f8f19" aris.name="NISP GUID"/>
+</nisp-attributes>
+~~~
 
 
 
