@@ -332,6 +332,7 @@
       <xsl:with-param name="type" select="'AT_NAME'"/>
       <xsl:with-param name="value" select="@title"/>
     </xsl:call-template>
+    <xsl:apply-templates/>
     <xsl:if test="count(sp-list) != 0">
       <Model Model.Type="MT_DEFENSE" AttrHandling="BREAKATTR" CxnMode="ONLYVERTICAL" GridUse="YES"
       			GridSize="50" Scale="100" PrintScale="100" BackColor="16777215"
@@ -366,7 +367,6 @@
         <xsl:apply-templates select="sp-list" mode="visual"/>
       </Model> 
     </xsl:if>
-    <xsl:apply-templates/>
   </Group>
 </xsl:template>
 
@@ -385,13 +385,13 @@
 <xsl:template match="select" mode="visual">
   <xsl:variable name="sid" select="@id"/>
   <xsl:apply-templates select="/standards/records/standard[@id=$sid]" mode="visual">
-     <xsl:with-param name="vid" select="generate-id(..)"/>
+     <xsl:with-param name="vid" select="generate-id(.)"/>
   </xsl:apply-templates>
   <xsl:apply-templates select="/standards/records/coverstandard[@id=$sid]" mode="visual">
-     <xsl:with-param name="vid" select="generate-id(..)"/>
+     <xsl:with-param name="vid" select="generate-id(.)"/>
   </xsl:apply-templates>
   <xsl:apply-templates select="/standards/records/profile[@id=$sid]" mode="visual">  
-     <xsl:with-param name="vid" select="generate-id(..)"/>
+     <xsl:with-param name="vid" select="generate-id(.)"/>
   </xsl:apply-templates>
 </xsl:template>
 
@@ -402,10 +402,12 @@
     <xsl:attribute name="ObjOcc.ID">
       <xsl:text>ObjOcc.</xsl:text>
       <xsl:value-of select="@id"/>
-      <xsl:text>-</xsl:text>
-      <!-- Since a standard may occur in multiple models, we need to add something unique
-      to the ID for the object occurrence ID (ObjOcc.ID) -->
-      <xsl:value-of select="$vid"/> 
+      <xsl:if test="$vid != ''">
+        <xsl:text>-</xsl:text>
+        <!-- Since a standard may occur in multiple models, we need to add something unique
+        to the ID for the object occurrence ID (ObjOcc.ID) -->
+        <xsl:value-of select="$vid"/>
+      </xsl:if> 
     </xsl:attribute>
     <xsl:attribute name="ObjDef.IdRef">
       <xsl:text>ObjDef.</xsl:text>
