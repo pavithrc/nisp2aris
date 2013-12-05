@@ -43,6 +43,8 @@
 <xsl:param name="nisp.attributes.map" select="document($nisp.attributes.file)"/>
 
 
+<!-- Generated date/time variables -->
+
 <xsl:variable name="now" select="translate(xs:string(current-dateTime()), ':', '.')"/>
 
 <xsl:variable name="dt" select="substring($now, 1, 16)"/>
@@ -103,10 +105,10 @@
 </xsl:template>
 
 
-<!-- The following three templates are used to create ARIS objects in the Artifacts group.
+<!-- The following three templates are used to create ARIS objects in the Artifacts
+     group.
 
 -->
-
 
 <xsl:template match="standard">
   <ObjDef TypeNum="OT_NW_PROT" SymbolNum="ST_STANDARD">
@@ -321,7 +323,6 @@
 
 <!-- Create the NISP taxonomy -->
 
-
 <xsl:template match="servicearea|subarea|servicecategory|category|subcategory|node">
   <Group>
     <xsl:attribute name="Group.ID">
@@ -336,7 +337,7 @@
     <xsl:if test="count(sp-list) != 0">
       <Model Model.Type="MT_DEFENSE" AttrHandling="BREAKATTR" CxnMode="ONLYVERTICAL" GridUse="YES"
       			GridSize="50" Scale="100" PrintScale="100" BackColor="16777215"
-			CurveRadius="0" ArcRadius="0"  LastUpdated="06:57:03.000;11/06/2013">
+			CurveRadius="0" ArcRadius="0">
         <xsl:attribute name="Model.ID">
           <xsl:text>Model.</xsl:text>
           <xsl:value-of select="@id"/>
@@ -375,7 +376,6 @@
 
 
 <!-- Create occurence objects in Models -->
-
 
 <xsl:template match="sp-list" mode="visual">
   <xsl:apply-templates select=".//select" mode="visual"/>
@@ -416,19 +416,17 @@
     <ExternalGUID>4420106e-4773-11e3-4df7-00155d5f8f19</ExternalGUID>
     <AttrOcc AttrTypeNum="AT_NAME" Port="CENTER" OrderNum="0" Alignment="CENTER" SymbolFlag="TEXT"/>
     <AttrOcc AttrTypeNum="{$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='type']/@aris.type}"
-             Port="LOWER_MIDDLE" OrderNum="0" Alignment="CENTER" SymbolFlag="TEXT"/>
-             
+             Port="LOWER_MIDDLE" OrderNum="0" Alignment="CENTER" SymbolFlag="TEXT"/>             
   </ObjOcc>
 </xsl:template>
 
 
 <!-- Create relationship models -->
 
-
 <xsl:template match="coverstandard|profile" mode="relations">
   <Model Model.Type="MT_DEFENSE" AttrHandling="BREAKATTR" CxnMode="ONLYVERTICAL" GridUse="YES"
                     GridSize="50" Scale="100" PrintScale="100" BackColor="16777215"
-                    CurveRadius="0" ArcRadius="0"  LastUpdated="06:57:03.000;11/06/2013">
+                    CurveRadius="0" ArcRadius="0">
     <xsl:attribute name="Model.ID">
       <xsl:text>Relations.</xsl:text>
       <xsl:value-of select="@id"/>
@@ -461,7 +459,6 @@
 </xsl:template>
 
 
-
 <xsl:template match="refstandard" mode="relations">
   <xsl:variable name="rid" select="@refid"/> 
   <xsl:apply-templates select="/standards/records/*[@id=$rid]" mode="visual"/>
@@ -469,7 +466,6 @@
 
 
 <!-- Utility template -->
-
 
 <xsl:template name="create.AttrDef">
   <xsl:param name="type" select="''"/>
@@ -499,7 +495,6 @@
 
 
 <!-- Handle Docbook elements - currently unused -->
-
 
 <xsl:template match="*">
   <xsl:message terminate="yes">
