@@ -133,14 +133,14 @@ attributes, they are
 |-----------|---------------|-----------|
 | - | @tag | AT_NAME |
 | Full Name | @title | AT_FULL_NAME |
-| Description/Definition | <applicability> | AT_DESC |
+| Description/Definition | \<applicability\> | AT_DESC |
 
 : mapping between NISP elements/attributes and ARIS types 
 
 
 
-| ARIS name | NISP name |
-|-----------|-----------|
+| ARIS name | NISP XML name |
+|-----------|---------------|
 | NISP ID | @id |
 | NISP PUBNUM | @pubnum |
 | NISP TYPE | - |
