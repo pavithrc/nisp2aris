@@ -16,6 +16,6 @@
   <nkey nisp.attribute="type"    aris.type="45f5e870-0163-11e2-4df7-00155d5f8f19" aris.name="NISP GUID"/>
 </nisp-attributes>
 
-<--
-  <nkey nisp.attribute="applicability" aris.type="f5c1ae70-0162-11e2-4df7-00155d5f8f19" aris.name="NISP APPLICABILITY"/> <!-- Maybe use description instead --> 
+<!--
+  <nkey nisp.attribute="applicability" aris.type="f5c1ae70-0162-11e2-4df7-00155d5f8f19" aris.name="NISP APPLICABILITY"/>
 -->
