@@ -117,9 +117,15 @@
       <xsl:value-of select="@id"/>
     </xsl:attribute>
     <GUID><xsl:value-of select="uuid"/></GUID>
+    <xsl:variable name="new.tag">
+      <xsl:value-of select="@tag"/>
+      <xsl:if test="@tag =''">
+        <xsl:value-of select="document/@title"/>
+      </xsl:if>
+    </xsl:variable>
     <xsl:call-template name="create.AttrDef">
       <xsl:with-param name="type" select="'AT_NAME'"/>
-      <xsl:with-param name="value" select="@tag"/>
+      <xsl:with-param name="value" select="$new.tag"/>
     </xsl:call-template>
     <xsl:call-template  name="create.AttrDef">
       <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='type']/@aris.type"/>
@@ -189,9 +195,15 @@
       </xsl:attribute>
     </xsl:if>
     <GUID><xsl:value-of select="uuid"/></GUID>
+    <xsl:variable name="new.tag">
+      <xsl:value-of select="@tag"/>
+      <xsl:if test="@tag =''">
+        <xsl:value-of select="document/@title"/>
+      </xsl:if>
+    </xsl:variable>
     <xsl:call-template name="create.AttrDef">
       <xsl:with-param name="type" select="'AT_NAME'"/>
-      <xsl:with-param name="value" select="@tag"/>
+      <xsl:with-param name="value" select="$new.tag"/>
     </xsl:call-template>
     <xsl:call-template  name="create.AttrDef">
       <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='type']/@aris.type"/>
@@ -261,9 +273,15 @@
       </xsl:attribute>
     </xsl:if>
     <GUID><xsl:value-of select="uuid"/></GUID>
+    <xsl:variable name="new.tag">
+      <xsl:value-of select="@tag"/>
+      <xsl:if test="@tag =''">
+        <xsl:text>Profile tag is missing</xsl:text>
+      </xsl:if>
+    </xsl:variable>
     <xsl:call-template name="create.AttrDef">
       <xsl:with-param name="type" select="'AT_NAME'"/>
-      <xsl:with-param name="value" select="@tag"/>
+      <xsl:with-param name="value" select="$new.tag"/>
     </xsl:call-template>
     <xsl:call-template  name="create.AttrDef">
       <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='type']/@aris.type"/>
