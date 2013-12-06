@@ -352,7 +352,7 @@
       <xsl:with-param name="value" select="@title"/>
     </xsl:call-template>
     <xsl:apply-templates/>
-    <xsl:if test="count(sp-list) != 0">
+    <xsl:if test="count(sp-list/sp-view/select) != 0">
       <Model Model.Type="MT_DEFENSE" AttrHandling="BREAKATTR" CxnMode="ONLYVERTICAL" GridUse="YES"
       			GridSize="50" Scale="100" PrintScale="100" BackColor="16777215"
 			CurveRadius="0" ArcRadius="0">
