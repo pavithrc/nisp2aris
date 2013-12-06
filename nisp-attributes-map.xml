@@ -2,9 +2,9 @@
 <!-- Map between NISP attribute types and similar attribute types
      defined your ARIS filter. -->
 
-<!-- The values below are implemented by the Danish extended NAF3 filter.
-     Replace with your own, as these values will differ for each
-     ARIS installation -->
+<!-- The values below are implemented by the Danish extended 
+     NAF3 filter. Replace with your own, as these values will
+     differ for each ARIS installation -->
  
 <nisp-attributes>
   <nkey nisp.attribute="id"      aris.type="db7dbe50-0162-11e2-4df7-00155d5f8f19" aris.name="NISP ID"/>
