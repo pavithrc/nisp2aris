@@ -8,7 +8,7 @@
 
 The enclosed stylesheets enables import of the NATO Interoperability
 Standards and Profiles (NISP) database into an ARIS v. 7.x repository
-where the Defence Solution (NAF3) filter has been implemented. The
+where the Defence Solution (NAF3) filter has been installed. The
 transformation is done by creating a pipeline of three transformation
 steps, where the output of the first two steps are used as input to
 the next step in the transformation process.
