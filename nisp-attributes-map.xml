@@ -7,15 +7,41 @@
      differ for each ARIS installation -->
  
 <nisp-attributes>
-  <nkey nisp.attribute="id"      aris.type="db7dbe50-0162-11e2-4df7-00155d5f8f19" aris.name="NISP ID"/>
-  <nkey nisp.attribute="orgid"   aris.type="0eb1f570-0163-11e2-4df7-00155d5f8f19" aris.name="NISP Std Organisation"/>
-  <nkey nisp.attribute="pubnum"  aris.type="1d2ee9a0-0163-11e2-4df7-00155d5f8f19" aris.name="NISP PUBNUM"/>
-  <nkey nisp.attribute="date"    aris.type="c8d548e0-0162-11e2-4df7-00155d5f8f19" aris.name="NISP DATE"/>
-  <nkey nisp.attribute="version" aris.type="30006ae0-0163-11e2-4df7-00155d5f8f19" aris.name="NISP VERSION"/>
-  <nkey nisp.attribute="status"  aris.type="3b35d530-0163-11e2-4df7-00155d5f8f19" aris.name="NISP Status"/>
-  <nkey nisp.attribute="type"    aris.type="45f5e870-0163-11e2-4df7-00155d5f8f19" aris.name="NISP GUID"/>
-</nisp-attributes>
+  <!-- ARIS Label: GUUID (Predefined in ARIS)
+       Use the NISP element uuid 
 
-<!--
-  <nkey nisp.attribute="applicability" aris.type="f5c1ae70-0162-11e2-4df7-00155d5f8f19" aris.name="NISP APPLICABILITY"/>
--->
+       ARIS Label: Name (Predefined in ARIS)
+       Use the NISP attribute @tag
+
+       ARIS Label: Full name (Predefined in ARIS)
+       Use the NISP attribute document/@title
+  
+       ARIS Label: Description/Definition (Predefined in ARIS)
+       Use the NISP element applicability
+
+       ARIS Label: Link 1
+       Use the NISP attribute status/@url
+
+  -->
+
+  <!-- ARIS Label: Standard Identifier -->
+  <nkey nisp.attribute="id"      aris.type="db7dbe50-0162-11e2-4df7-00155d5f8f19"/>
+  
+  <!-- ARIS Label: Standard Publisher -->
+  <nkey nisp.attribute="orgid"   aris.type="0eb1f570-0163-11e2-4df7-00155d5f8f19"/>
+
+  <!-- ARIS Label: NISP PUBNUM -->
+  <nkey nisp.attribute="pubnum"  aris.type="1d2ee9a0-0163-11e2-4df7-00155d5f8f19"/>
+
+  <!-- ARIS Label: Standard Ratification Date -->
+  <nkey nisp.attribute="date"    aris.type="c8d548e0-0162-11e2-4df7-00155d5f8f19"/>
+
+  <!-- ARIS Label: Standard Version -->
+  <nkey nisp.attribute="version" aris.type="30006ae0-0163-11e2-4df7-00155d5f8f19"/>
+
+  <!-- ARIS Label: NISP Status -->
+  <nkey nisp.attribute="status"  aris.type="3b35d530-0163-11e2-4df7-00155d5f8f19"/>
+
+  <!-- ARIS Label: NISP TYPE -->
+  <nkey nisp.attribute="type"    aris.type="45f5e870-0163-11e2-4df7-00155d5f8f19"/>
+</nisp-attributes>
