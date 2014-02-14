@@ -171,7 +171,7 @@ attributes, they are
        Use the NISP element applicability
 
        ARIS Label: Link 1
-       Use the NISP attribute status/@url
+       Use the NISP attribute status/uri
 
   -->
 
