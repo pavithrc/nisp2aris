@@ -522,7 +522,7 @@
 </xsl:template>
 
 
-<!-- Handle Docbook elements - currently unused -->
+<!-- Handle Docbook elements from the NISP applicability element - currently unused -->
 
 <xsl:template match="*">
   <xsl:message terminate="yes">
