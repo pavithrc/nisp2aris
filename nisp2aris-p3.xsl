@@ -129,7 +129,7 @@
     </xsl:call-template>
     <xsl:call-template  name="create.AttrDef">
       <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='type']/@aris.type"/>
-      <xsl:with-param name="value" select="'S'"/>
+      <xsl:with-param name="value" select="'(NISP Standard)'"/>
     </xsl:call-template>
     <xsl:if test="$show.nisp.id = 1">
       <xsl:call-template name="create.AttrDef">
@@ -179,6 +179,12 @@
         <xsl:with-param name="value" select="status/@mode"/>
       </xsl:call-template>
     </xsl:if>
+    <xsl:if test="$show.nisp.uri = 1 and status/uri != ''">
+      <xsl:call-template name="create.AttrDef">
+        <xsl:with-param name="type" select="'AT_EXT_1'"/>
+        <xsl:with-param name="value" select="status/uri"/>
+      </xsl:call-template>
+    </xsl:if>
   </ObjDef>
 </xsl:template>
 
@@ -207,7 +213,7 @@
     </xsl:call-template>
     <xsl:call-template  name="create.AttrDef">
       <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='type']/@aris.type"/>
-      <xsl:with-param name="value" select="'CS'"/>
+      <xsl:with-param name="value" select="'(NISP Coverstandard)'"/>
     </xsl:call-template>
     <xsl:if test="$show.nisp.id = 1">
       <xsl:call-template name="create.AttrDef">
@@ -285,7 +291,7 @@
     </xsl:call-template>
     <xsl:call-template  name="create.AttrDef">
       <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='type']/@aris.type"/>
-      <xsl:with-param name="value" select="'P'"/>
+      <xsl:with-param name="value" select="'(NISP Profile)'"/>
     </xsl:call-template>
     <xsl:if test="$show.nisp.id = 1">
       <xsl:call-template name="create.AttrDef">
@@ -442,6 +448,7 @@
 <!-- Create relationship models -->
 
 <xsl:template match="coverstandard|profile" mode="relations">
+  <xsl:variable name="thisid" select="@id"/>
   <Model Model.Type="MT_DEFENSE" AttrHandling="BREAKATTR" CxnMode="ONLYVERTICAL" GridUse="YES"
                     GridSize="50" Scale="100" PrintScale="100" BackColor="16777215"
                     CurveRadius="0" ArcRadius="0">
@@ -472,6 +479,9 @@
       <xsl:with-param name="type" select="'AT_NAME'"/>
       <xsl:with-param name="value" select="concat('Relations.',@id)"/>
     </xsl:call-template>
+    <!-- Visualize the coverstandard/profile -->
+    <xsl:apply-templates select="/standards/records/*[@id=$thisid]" mode="visual"/>
+    <!-- Visualize all the substandards -->
     <xsl:apply-templates select=".//refstandard" mode="relations"/>
   </Model> 
 </xsl:template>
