@@ -195,3 +195,18 @@ Cavecats
 
 
 
+
+TODO
+=====
+
++ Create an URL in Link 1 attribute
++ CS, S and P as long names
+* Model med mandatory standards
+* Model med emerging standards
+* Model med fading standards
+* Model med unmarked standards
+* Relations - Brug tag navn i stedet for ID
++ Relations modeller - Tilføj CS og P på modeller
+
+
+
