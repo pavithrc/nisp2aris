@@ -24,6 +24,7 @@
 <xsl:param name="show.nisp.version" select="1"/>
 <xsl:param name="show.nisp.applicability" select="1"/>
 <xsl:param name="show.nisp.status" select="1"/>
+<xsl:param name="show.nisp.uri" select="1"/>
 
 <!-- Use assignments -->
 
