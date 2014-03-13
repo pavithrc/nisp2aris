@@ -20,7 +20,7 @@
 <xsl:param name="show.nisp.orgid" select="1"/>
 <xsl:param name="show.nisp.pubnum" select="1"/>
 <xsl:param name="show.nisp.title" select="1"/>
-<xsl:param name="show.nisp.date" select="0"/>
+<xsl:param name="show.nisp.date" select="1"/>
 <xsl:param name="show.nisp.version" select="1"/>
 <xsl:param name="show.nisp.applicability" select="1"/>
 <xsl:param name="show.nisp.status" select="1"/>
