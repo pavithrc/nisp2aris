@@ -99,10 +99,22 @@
           <xsl:apply-templates select="records/coverstandard" mode="relations"/>
           <xsl:apply-templates select="records/profile" mode="relations"/>
         </Group>
+        <!-- Show tagged standards -->
+        <xsl:call-template name="show.tagged.standards">
+          <xsl:with-param name="mode" select="'Mandatory'"/>
+        </xsl:call-template>
+        <xsl:call-template name="show.tagged.standards">
+          <xsl:with-param name="mode" select="'Emerging'"/>
+        </xsl:call-template>
+        <xsl:call-template name="show.tagged.standards">
+          <xsl:with-param name="mode" select="'Fading'"/>
+        </xsl:call-template>
       </Group>
     </Group>
   </AML>
 </xsl:template>
+
+
 
 
 <!-- The following three templates are used to create ARIS objects in the Artifacts
@@ -420,6 +432,50 @@
 <xsl:template match="sp-list"/>
 
 
+<!-- Create models with tagged (mandatory, emerging, fading)  -->
+
+<xsl:template name="show.tagged.standards">
+  <xsl:param name="mode" />
+
+  <Model Model.Type="MT_DEFENSE" AttrHandling="BREAKATTR" CxnMode="ONLYVERTICAL" GridUse="YES"
+      			GridSize="50" Scale="100" PrintScale="100" BackColor="16777215"
+			CurveRadius="0" ArcRadius="0">
+    <xsl:attribute name="Model.ID">
+      <xsl:text>Model.</xsl:text>
+      <xsl:value-of select="concat($mode, '-', $dt)"/>
+    </xsl:attribute>
+    <Flag>4c0</Flag>
+    <TypeGUID>f4e31b30-3378-11de-7dee-000c29c116d3</TypeGUID>
+    <TemplateGUID>2ed57d10-68c8-11d7-5d85-000bcd25c95f</TemplateGUID>
+    <Lane Lane.Type="LT_DEFAULT" Orientation="VERTICAL" StartBorder="0" EndBorder="50000">
+      <Pen Color="0" Style="0" Width="0"/>
+      <Brush Color="7f7f7f" Color2="0" BrushType="SOLID"/>
+      <xsl:call-template name="create.AttrDef">
+        <xsl:with-param name="type" select="'AT_NAME'"/>
+        <xsl:with-param name="value" select="'.'"/>
+      </xsl:call-template>
+    </Lane>
+    <Lane Lane.Type="LT_DEFAULT" Orientation="HORIZONTAL" StartBorder="0" EndBorder="50000">
+      <Pen Color="0" Style="0" Width="0"/>
+      <Brush Color="7f7f7f" Color2="0" BrushType="SOLID"/>
+      <xsl:call-template name="create.AttrDef">
+        <xsl:with-param name="type" select="'AT_NAME'"/>
+        <xsl:with-param name="value" select="'.'"/>
+      </xsl:call-template>
+    </Lane>
+    <xsl:call-template name="create.AttrDef">
+      <xsl:with-param name="type" select="'AT_NAME'"/>
+      <xsl:with-param name="value" select="concat($mode, ' standards and profiles')"/>
+    </xsl:call-template>
+    <xsl:apply-templates select=".//select[@mode=lower-case($mode)]" mode="visual">
+      <xsl:with-param name="ObjOcc.postfix" select="lower-case($mode)"/>
+    </xsl:apply-templates>
+  </Model>
+</xsl:template>
+
+
+
+
 <!-- Create occurence objects in Models -->
 
 <xsl:template match="sp-list" mode="visual">
@@ -428,15 +484,17 @@
 
 
 <xsl:template match="select" mode="visual">
+  <xsl:param name="ObjOcc.postfix" select="'taxmodel'"/> <!-- Default postfix for ObjOcc.IDs -->
+
   <xsl:variable name="sid" select="@id"/>
   <xsl:apply-templates select="/standards/records/standard[@id=$sid]" mode="visual">
-     <xsl:with-param name="vid" select="generate-id(.)"/>
+     <xsl:with-param name="vid" select="concat(generate-id(.), $ObjOcc.postfix)"/>
   </xsl:apply-templates>
   <xsl:apply-templates select="/standards/records/coverstandard[@id=$sid]" mode="visual">
-     <xsl:with-param name="vid" select="generate-id(.)"/>
+     <xsl:with-param name="vid" select="concat(generate-id(.), $ObjOcc.postfix)"/>
   </xsl:apply-templates>
   <xsl:apply-templates select="/standards/records/profile[@id=$sid]" mode="visual">  
-     <xsl:with-param name="vid" select="generate-id(.)"/>
+     <xsl:with-param name="vid" select="concat(generate-id(.), $ObjOcc.postfix)"/>
   </xsl:apply-templates>
 </xsl:template>
 
@@ -444,13 +502,13 @@
 <xsl:template match="standard|coverstandard|profile" mode="visual">
   <xsl:param name="vid"/>
   <ObjOcc SymbolNum="ST_STANDARD">
+    <!-- Since a standard may occur in multiple models, we need to add something unique
+    to the ID for the object occurrence ID (ObjOcc.ID) -->
     <xsl:attribute name="ObjOcc.ID">
       <xsl:text>ObjOcc.</xsl:text>
       <xsl:value-of select="@id"/>
       <xsl:if test="$vid != ''">
         <xsl:text>-</xsl:text>
-        <!-- Since a standard may occur in multiple models, we need to add something unique
-        to the ID for the object occurrence ID (ObjOcc.ID) -->
         <xsl:value-of select="$vid"/>
       </xsl:if> 
     </xsl:attribute>
@@ -461,7 +519,7 @@
     <ExternalGUID>4420106e-4773-11e3-4df7-00155d5f8f19</ExternalGUID>
     <AttrOcc AttrTypeNum="AT_NAME" Port="CENTER" OrderNum="0" Alignment="CENTER" SymbolFlag="TEXT"/>
     <AttrOcc AttrTypeNum="{$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='type']/@aris.type}"
-             Port="LOWER_MIDDLE" OrderNum="0" Alignment="CENTER" SymbolFlag="TEXT"/>             
+             Port="LOWER_MIDDLE" OrderNum="0" Alignment="CENTER" SymbolFlag="TEXT"/>
   </ObjOcc>
 </xsl:template>
 

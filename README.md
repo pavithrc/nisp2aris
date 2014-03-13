@@ -66,15 +66,18 @@ An import of NISP will create the following hierachy of ARIS groups
 
 ~~~
 
-  NISP-import-yyyy-mm-dd
+  NISP-import-yyyy-mm-dd/
         |
-        ------ Artifacts
+        ------ Artifacts/
         |
-        ------ Relations
+        ------ Relations/
         |
-        ------ Taxonomy
+        ------ Taxonomy/
 
 ~~~
+
+
+The import file also contains three models describing mandatory, emerging and fading standards and profiles.
 
 
 The subfolders in the hierachy contains the following 
@@ -216,20 +219,10 @@ The files which are part of the distribution are
 
 
 
-# Cavecats
-
-
-
-
-
 # TODO
 
-* Model med mandatory standards
-* Model med emerging standards
-* Model med fading standards
-* Model med unmarked standards
-* Relations - Brug tag navn i stedet for ID
-* Relations modeller - Tilføj CS og P på modeller
+* Relations - Use tag name instead of ID
+
 
 
 
