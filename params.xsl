@@ -49,7 +49,13 @@
 
 <xsl:param name="nisp.attributes.file" select="'nisp-attributes-map.xml'"/>
 
+<!-- ARIS default date time patterns -->
 
+<xsl:param name="default.ARIS.date" select="'01/01/1980'"/> <!-- Format: mm/dd/yyyy -->
+<xsl:param name="default.ARIS.time" select="'11:11:11.111'"/> <!-- Format: hh/mm/ss.sss -->
+<xsl:param name="default.ARIS.datetimesep" select="';'"/>
 
+<xsl:variable name="default.ARIS.datetime"
+  select="concat($default.ARIS.date, $default.ARIS.datetimesep, $default.ARIS.time)"/>
 
 </xsl:stylesheet>

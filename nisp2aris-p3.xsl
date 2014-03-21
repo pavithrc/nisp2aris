@@ -157,29 +157,12 @@
     </xsl:if>
     <xsl:if test="$show.nisp.date = 1">
       <xsl:variable name="aris.date">
-        <xsl:text>11:11:11.111;</xsl:text>
-        <xsl:choose>
-          <xsl:when test="string-length(document/@date)=4">
-            <xsl:text>01/01/</xsl:text>
-            <xsl:value-of select="document/@date"/>
-          </xsl:when>
-          <xsl:when test="string-length(document/@date)=7">
-            <xsl:value-of select="substring(document/@date, 6, 2)"/>
-            <xsl:text>/01/</xsl:text> 
-            <xsl:value-of select="substring(document/@date, 1, 4)"/> 
-          </xsl:when>
-          <xsl:when test="string-length(document/@date)=9">
-            <xsl:value-of select="substring(document/@date, 6, 2)"/>
-            <xsl:text>/</xsl:text> 
-            <xsl:value-of select="substring(document/@date, 9, 2)"/> 
-            <xsl:text>/</xsl:text> 
-            <xsl:value-of select="substring(document/@date, 1, 4)"/> 
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:text>01/01/1980</xsl:text>
-          </xsl:otherwise>
-        </xsl:choose>
+        <xsl:call-template name="make-ARIS-date">
+          <xsl:with-param name="nisp.date" select="document/@date"/>
+        </xsl:call-template>>
       </xsl:variable>
+
+
       <xsl:call-template name="create.AttrDef">
         <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='date']/@aris.type"/>
         <xsl:with-param name="value" select="$aris.date"/>
@@ -263,14 +246,17 @@
         <xsl:with-param name="value" select="document/@title"/>
       </xsl:call-template>
     </xsl:if>
-<!--
     <xsl:if test="$show.nisp.date = 1">
+      <xsl:variable name="aris.date">
+        <xsl:call-template name="make-ARIS-date">
+          <xsl:with-param name="nisp.date" select="document/@date"/>
+        </xsl:call-template>
+      </xsl:variable>
       <xsl:call-template name="create.AttrDef">
         <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='date']/@aris.type"/>
-        <xsl:with-param name="value" select="document/@date"/>
+        <xsl:with-param name="value" select="$aris.date"/>
       </xsl:call-template>
     </xsl:if>
--->
     <xsl:if test="($show.nisp.version = 1) and (document/@version != '')">
       <xsl:call-template name="create.AttrDef">
         <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='version']/@aris.type"/>
@@ -343,14 +329,15 @@
         <xsl:with-param name="value" select="document/@title"/>
       </xsl:call-template>
     </xsl:if>
-<!--
+
+    <!-- For the time beeing use default timestamp in profiles -->
     <xsl:if test="$show.nisp.date = 1">
       <xsl:call-template name="create.AttrDef">
         <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='date']/@aris.type"/>
-        <xsl:with-param name="value" select="document/@date"/>
+        <xsl:with-param name="value" select="$default.ARIS.datetime"/>
       </xsl:call-template>
     </xsl:if>
--->
+
     <xsl:if test="($show.nisp.version = 1) and (document/@version != '')">
       <xsl:call-template name="create.AttrDef">
         <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='version']/@aris.type"/>
@@ -370,6 +357,36 @@
       </xsl:call-template>
     </xsl:if>
   </ObjDef>
+</xsl:template>
+
+
+<xsl:template name="make-ARIS-date">
+  <xsl:param name="nisp.date"/>
+
+  <xsl:value-of select="$default.ARIS.time"/>
+  <xsl:value-of select="$default.ARIS.datetimesep"/>
+
+  <xsl:choose>
+    <xsl:when test="string-length($nisp.date)=4">
+      <xsl:text>01/01/</xsl:text>
+      <xsl:value-of select="$nisp.date"/>
+    </xsl:when>
+    <xsl:when test="string-length($nisp.date)=7">
+      <xsl:value-of select="substring($nisp.date, 6, 2)"/>
+      <xsl:text>/01/</xsl:text> 
+      <xsl:value-of select="substring($nisp.date, 1, 4)"/> 
+    </xsl:when>
+    <xsl:when test="string-length($nisp.date)=9">
+      <xsl:value-of select="substring($nisp.date, 6, 2)"/>
+      <xsl:text>/</xsl:text> 
+      <xsl:value-of select="substring($nisp.date, 9, 2)"/> 
+      <xsl:text>/</xsl:text> 
+      <xsl:value-of select="substring($nisp.date, 1, 4)"/> 
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:value-of select="$default.ARIS.date"/>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 
