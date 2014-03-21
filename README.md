@@ -7,14 +7,14 @@
 # Introduction
 
 The enclosed stylesheets enables import of the NATO Interoperability
-Standards and Profiles (NISP) database into an ARIS v. 7.x repository
+Standards and Profiles ([NISP]) database into an ARIS v. 7.x repository
 where the Defence Solution (NAF3) filter has been installed. The
 transformation is done by creating a pipeline of three transformation
 steps, where the output of the first two steps are used as input to
 the next step in the transformation process.
 
 Piping output from one transformation step to the next is implemented
-using a propriatary extension of the XSLT processor Saxon - the
+using a propriatary extension of the XSLT processor [Saxon] - the
 stylesheets have been tested with version 9.1 of Saxon.
 
 
@@ -231,6 +231,7 @@ TODO
 
 + Create an URL in Link 1 attribute
 + CS, S and P as long names
++ Fix dates
 * Model med mandatory standards
 * Model med emerging standards
 * Model med fading standards
@@ -240,3 +241,6 @@ TODO
 
 
 
+[NISP]: https://nhqc3s.hq.nato.int/Apps/Architecture/NISP/
+[Saxon]: http://saxon.sourceforge.net/
+[ARIS]: http://www.softwareag.com/corporate/products/aris/
