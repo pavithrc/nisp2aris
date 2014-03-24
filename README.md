@@ -22,7 +22,7 @@ Transformation of the NISP standard database `standards.xml` to a ARIS
 Markup Language (AML) document, which can be imported into the ARIS
 repository is done by running the command:
 
-~~~ {.Bash}
+~~~ {.bash}
     saxon -o nisp-as-aris-aml.xml standards.xml nis2aris.xsl
 ~~~
 
@@ -34,17 +34,20 @@ a format, which can be imported into an ARIS repository are implemented
 in the three files: `nisp2aris.xsl`, `nisp2aris-p2.xsl` and
 `nisp2aris-p3.xsl`. The three transformations are
 
-`nisp2aris.xsl`
+**nisp2aris.xsl**
+
 :   Remove all standards and profiles, which are not
     explicitly marked as mandatory, emerging or fading in a NISP select
     statement. Also standards which have an implicit relationsho a
     selected standard/profile are included. This relationship will exist
     if e.g. a standard is part of seleted standard.
 
-`nisp2aris-p2.xsl`
+**nisp2aris-p2.xsl**
+
 :   Merge all select statement into the taxonomy. Remove all standards and profiles with a status of *retired* or *rejected*. 
 
-`nisp2aris-p3.xsl`
+**nisp2aris-p3.xsl**
+
 :   This is where the actual generation of the AML document takes place.
 
 
@@ -55,14 +58,14 @@ and profiles should be imported, the first transformation step can be
 skipped by running the command:
 
 
-~~~ {.Bash}
+~~~ {.bash}
     saxon -o nisp-as-aris-aml.xml standards.xml nis2aris-p2.xsl
 ~~~
 
 
 ## Sturcture of a NISP import
 
-An import of NISP with create the following hierachy of ARIS groups
+An import of NISP will create the following hierachy of ARIS groups
 
 ~~~
 
@@ -80,10 +83,12 @@ An import of NISP with create the following hierachy of ARIS groups
 The subfolders in the hierachy contains the following 
 
 
-Artifacts
-:    All NISP standards and profiles are place in the folder as ARIS standard objects 
+**Artifacts**
 
-Relations
+:   All NISP standards and profiles are place in the folder as ARIS standard objects 
+
+**Relations**
+
 :   This folder contain models which describes the
     relationship between a profile and it child standards an
     profiles. The name of the model represents the parent standard or
@@ -91,7 +96,8 @@ Relations
     children if the parent.
 
 
-Taxonomy
+**Taxonomy**
+
 :   The taxonomy group contains all nodes in the C3 taxonomy
     represented as ARIS groups. In each ARIS group there is óne ARIS
     model with ARIS standards, which represents the standard and
