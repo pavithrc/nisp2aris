@@ -56,6 +56,6 @@
 <xsl:param name="default.ARIS.datetimesep" select="';'"/>
 
 <xsl:variable name="default.ARIS.datetime"
-  select="concat($default.ARIS.date, $default.ARIS.datetimesep, $default.ARIS.time)"/>
+  select="concat($default.ARIS.time, $default.ARIS.datetimesep, $default.ARIS.date)"/>
 
 </xsl:stylesheet>

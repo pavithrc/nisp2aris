@@ -156,14 +156,8 @@
       </xsl:call-template>
     </xsl:if>
     <xsl:if test="$show.nisp.date = 1">
-      <xsl:variable name="aris.date">
-        <xsl:call-template name="make-ARIS-date">
-          <xsl:with-param name="nisp.date" select="document/@date"/>
-        </xsl:call-template>>
-      </xsl:variable>
-
-
-      <xsl:call-template name="create.AttrDef">
+      <xsl:variable name="aris.date"><xsl:apply-templates select="document/@date"/></xsl:variable>
+      <xsl:call-template name="create.simple.AttrDef">
         <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='date']/@aris.type"/>
         <xsl:with-param name="value" select="$aris.date"/>
       </xsl:call-template>
@@ -247,12 +241,8 @@
       </xsl:call-template>
     </xsl:if>
     <xsl:if test="$show.nisp.date = 1">
-      <xsl:variable name="aris.date">
-        <xsl:call-template name="make-ARIS-date">
-          <xsl:with-param name="nisp.date" select="document/@date"/>
-        </xsl:call-template>
-      </xsl:variable>
-      <xsl:call-template name="create.AttrDef">
+      <xsl:variable name="aris.date"><xsl:apply-templates select="document/@date"/></xsl:variable>
+      <xsl:call-template name="create.simple.AttrDef">
         <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='date']/@aris.type"/>
         <xsl:with-param name="value" select="$aris.date"/>
       </xsl:call-template>
@@ -332,9 +322,9 @@
 
     <!-- For the time beeing use default timestamp in profiles -->
     <xsl:if test="$show.nisp.date = 1">
-      <xsl:call-template name="create.AttrDef">
+      <xsl:call-template name="create.simple.AttrDef">
         <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='date']/@aris.type"/>
-        <xsl:with-param name="value" select="$default.ARIS.datetime"/>
+        <xsl:with-param name="value" select="$default.ARIS.date"/>
       </xsl:call-template>
     </xsl:if>
 
@@ -360,32 +350,18 @@
 </xsl:template>
 
 
-<xsl:template name="make-ARIS-date">
-  <xsl:param name="nisp.date"/>
-
-  <xsl:value-of select="$default.ARIS.time"/>
-  <xsl:value-of select="$default.ARIS.datetimesep"/>
-
+<xsl:template match="document/@date">
   <xsl:choose>
-    <xsl:when test="string-length($nisp.date)=4">
-      <xsl:text>01/01/</xsl:text>
-      <xsl:value-of select="$nisp.date"/>
-    </xsl:when>
-    <xsl:when test="string-length($nisp.date)=7">
-      <xsl:value-of select="substring($nisp.date, 6, 2)"/>
-      <xsl:text>/01/</xsl:text> 
-      <xsl:value-of select="substring($nisp.date, 1, 4)"/> 
-    </xsl:when>
-    <xsl:when test="string-length($nisp.date)=9">
-      <xsl:value-of select="substring($nisp.date, 6, 2)"/>
-      <xsl:text>/</xsl:text> 
-      <xsl:value-of select="substring($nisp.date, 9, 2)"/> 
-      <xsl:text>/</xsl:text> 
-      <xsl:value-of select="substring($nisp.date, 1, 4)"/> 
-    </xsl:when>
-    <xsl:otherwise>
-      <xsl:value-of select="$default.ARIS.date"/>
-    </xsl:otherwise>
+    <xsl:when test="string-length(.)=4"><xsl:text>01/01/</xsl:text><xsl:value-of
+              select="."/></xsl:when>
+    <xsl:when test="string-length(.)=7"><xsl:value-of 
+              select="substring(., 6, 2)"/><xsl:text>/01/</xsl:text><xsl:value-of
+              select="substring(., 1, 4)"/></xsl:when>
+    <xsl:when test="string-length(.)=9"><xsl:value-of
+              select="substring(., 6, 2)"/><xsl:text>/</xsl:text><xsl:value-of 
+              select="substring(., 9, 2)"/><xsl:text>/</xsl:text><xsl:value-of
+              select="substring(., 1, 4)"/></xsl:when>
+    <xsl:otherwise><xsl:value-of select="$default.ARIS.date"/></xsl:otherwise>
   </xsl:choose>
 </xsl:template>
 
@@ -562,6 +538,18 @@
 	  </StyledElement>      
         </StyledElement>
       </AttrValue>
+    </xsl:if>
+  </AttrDef>
+</xsl:template>
+
+<xsl:template name="create.simple.AttrDef">
+  <xsl:param name="type" select="''"/>
+  <xsl:param name="value" select="''"/>
+
+  <AttrDef AttrDef.Type="{$type}">
+    <AttrValue LocaleId="{$primary.lang.locale}"><xsl:value-of select="$value"/></AttrValue>
+    <xsl:if test="$use.secondary.language = 1">
+      <AttrValue LocaleId="{$secondary.alt.lang.locale}"><xsl:value-of select="$value"/></AttrValue>
     </xsl:if>
   </AttrDef>
 </xsl:template>
