@@ -129,7 +129,7 @@
     </xsl:call-template>
     <xsl:call-template  name="create.AttrDef">
       <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='type']/@aris.type"/>
-      <xsl:with-param name="value" select="'(NISP Standard)'"/>
+      <xsl:with-param name="value" select="'Standard'"/>
     </xsl:call-template>
     <xsl:if test="$show.nisp.id = 1">
       <xsl:call-template name="create.AttrDef">
@@ -214,7 +214,7 @@
     </xsl:call-template>
     <xsl:call-template  name="create.AttrDef">
       <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='type']/@aris.type"/>
-      <xsl:with-param name="value" select="'(NISP Coverstandard)'"/>
+      <xsl:with-param name="value" select="'Coverstandard'"/>
     </xsl:call-template>
     <xsl:if test="$show.nisp.id = 1">
       <xsl:call-template name="create.AttrDef">
@@ -293,7 +293,7 @@
     </xsl:call-template>
     <xsl:call-template  name="create.AttrDef">
       <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='type']/@aris.type"/>
-      <xsl:with-param name="value" select="'(NISP Profile)'"/>
+      <xsl:with-param name="value" select="'Profile'"/>
     </xsl:call-template>
     <xsl:if test="$show.nisp.id = 1">
       <xsl:call-template name="create.AttrDef">
