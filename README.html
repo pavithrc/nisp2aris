@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+</head>
+<body>
+<!--
+% Importing NISP into an ARIS/NAF3 architecture repository
+% Jens Stavnstrup \<stavnstrup@mil.dk\>
+% 4. December 2013
+-->
+
+<h1 id="introduction">Introduction</h1>
+<p>The enclosed style-sheets enables import of the NATO Interoperability Standards and Profiles (<a href="https://nhqc3s.hq.nato.int/Apps/Architecture/NISP/">NISP</a>) database into an ARIS v. 7.x repository where the Defence Solution (NAF3) filter has been installed. The transformation is done by creating a pipeline of three transformation steps, where the output of the first two steps are used as input to the next step in the transformation process.</p>
+<p>Piping output from one transformation step to the next is implemented using a proprietary extension of the XSLT processor <a href="http://saxon.sourceforge.net/">Saxon</a> - the style-sheets have been tested with version 9.1 of Saxon.</p>
+<p>Transformation of the NISP standard database <code>standards.xml</code> to a ARIS Markup Language (AML) document, which can be imported into the ARIS repository is done by running the command:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash">    <span class="kw">saxon</span> -o nisp-as-aris-aml.xml standards.xml nis2aris.xsl</code></pre>
+<h1 id="generation-of-an-aml-file">Generation of an AML file</h1>
+<p>The three transformations necessary to transform the NISP database into a format, which can be imported into an ARIS repository are implemented in the three files: <code>nisp2aris.xsl</code>, <code>nisp2aris-p2.xsl</code> and <code>nisp2aris-p3.xsl</code>. The three transformations are</p>
+<ul>
+<li><p><strong>nisp2aris.xsl</strong> - Remove all standards and profiles, which are not explicitly marked as mandatory, emerging or fading in a NISP select statement. Also standards which have an implicit relationship with selected standard/profile are included. This relationship will exist if e.g. a standard is part of selected standard or profile.</p></li>
+<li><p><strong>nisp2aris-p2.xsl</strong> - Merge all select statement into the taxonomy. Remove all standards and profiles with a status of <em>retired</em> or <em>rejected</em>.</p></li>
+<li><p><strong>nisp2aris-p3.xsl</strong> - This is where the actual generation of the AML document takes place.</p></li>
+</ul>
+<p>The style-sheets are described in more detail in comments embedded in each style-sheet.</p>
+<p>If all standards and profiles, except retired and rejected standards and profiles should be imported, the first transformation step can be skipped by running the command:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash">    <span class="kw">saxon</span> -o nisp-as-aris-aml.xml standards.xml nis2aris-p2.xsl</code></pre>
+<h2 id="structure-of-a-nisp-import">Structure of a NISP import</h2>
+<p>An import of NISP will create the following hierarchy of ARIS groups</p>
+<pre><code>
+  NISP-import-yyyy-mm-dd/
+        |
+        ------ Artefacts/
+        |
+        ------ Relations/
+        |
+        ------ Taxonomy/
+</code></pre>
+<p>The import file also contains three models describing mandatory, emerging and fading standards and profiles.</p>
+<p>The sub folders in the hierarchy contains the following</p>
+<ul>
+<li><p><strong>Artefacts</strong> - All NISP standards and profiles are place in the folder as ARIS standard objects</p></li>
+<li><p><strong>Relations</strong> - This folder contain models which describes the relationship between a profile and it child standards an profiles. The name of the model represents the parent standard or profile and the ARIS standard objects in the model represents the children if the parent.</p></li>
+<li><p><strong>Taxonomy</strong> - The taxonomy group contains all nodes in the C3 taxonomy represented as ARIS groups. In each ARIS group there is one ARIS model with ARIS standards, which represents the standard and profiles, which are marked as mandatory, emerging or fading for the specific position of the C3 taxonomy.</p></li>
+</ul>
+<h2 id="configuration-of-the-style-sheets">Configuration of the style-sheets</h2>
+<p>Parameters used to configure the style-sheet are placed in the file <code>params.xsl</code>.</p>
+<h2 id="standard-attributes">Standard attributes</h2>
+<p>The properties of a standard or profile are in NISP represented as XML elements and attributes. Some of these elements and attributes are useful for the architect and are therefore imported as attributes to the ARIS/NAF3 standard element.</p>
+<p>All elements in an ARIS repository (group and objects) are given universally unique identifier (UUID) at creation time. If an imported element in an AML file do not have an UUID one is created automatically. We utilise this property of the import process to ensure, that all NISP standard and profiles are uniquely identified once by the NISP uuid element and any subsequent import of the NISP database will not create new uuid for standards and profiles.</p>
+<p>Some NISP element and attributes are represented using standard ARIS attributes, they are</p>
+<table>
+<caption>mapping between NISP elements/attributes and ARIS types</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">ARIS name</th>
+<th style="text-align: left;">NISP XML name</th>
+<th style="text-align: left;">ARIS Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">-</td>
+<td style="text-align: left;"><span class="citation" data-cites="tag">@tag</span></td>
+<td style="text-align: left;">AT_NAME</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Full Name</td>
+<td style="text-align: left;"><span class="citation" data-cites="title">@title</span></td>
+<td style="text-align: left;">AT_FULL_NAME</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Description/Definition</td>
+<td style="text-align: left;">&lt;applicability&gt;</td>
+<td style="text-align: left;">AT_DESC</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">ARIS name</th>
+<th style="text-align: left;">NISP XML name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">NISP ID</td>
+<td style="text-align: left;"><span class="citation" data-cites="id">@id</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NISP PUBNUM</td>
+<td style="text-align: left;"><span class="citation" data-cites="pubnum">@pubnum</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NISP TYPE</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NISP DATE</td>
+<td style="text-align: left;"><span class="citation" data-cites="date">@date</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NISP VERSION</td>
+<td style="text-align: left;"><span class="citation" data-cites="version">@version</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NISP Std Organisation</td>
+<td style="text-align: left;"><span class="citation" data-cites="orgid">@orgid</span></td>
+</tr>
+</tbody>
+</table>
+<pre class="sourceCode xml"><code class="sourceCode xml"><span class="kw">&lt;?xml</span> version=&quot;1.0&quot;<span class="kw">?&gt;</span>
+<span class="co">&lt;!-- Map between NISP attribute types and similar attribute types</span>
+<span class="co">     defined your ARIS filter. --&gt;</span>
+
+<span class="co">&lt;!-- The values below are implemented by the Danish extended </span>
+<span class="co">     NAF3 filter. Replace with your own, as these values will</span>
+<span class="co">     differ for each ARIS installation --&gt;</span>
+ 
+<span class="kw">&lt;nisp-attributes&gt;</span>
+  <span class="co">&lt;!-- ARIS Label: GUUID (Predefined in ARIS)</span>
+<span class="co">       Use the NISP element uuid </span>
+
+<span class="co">       ARIS Label: Name (Predefined in ARIS)</span>
+<span class="co">       Use the NISP attribute @tag</span>
+
+<span class="co">       ARIS Label: Full name (Predefined in ARIS)</span>
+<span class="co">       Use the NISP attribute document/@title</span>
+<span class="co">  </span>
+<span class="co">       ARIS Label: Description/Definition (Predefined in ARIS)</span>
+<span class="co">       Use the NISP element applicability</span>
+
+<span class="co">       ARIS Label: Link 1</span>
+<span class="co">       Use the NISP attribute status/uri</span>
+
+<span class="co">  --&gt;</span>
+
+  <span class="co">&lt;!-- ARIS Label: Standard Identifier --&gt;</span>
+  <span class="kw">&lt;nkey</span><span class="ot"> nisp.attribute=</span><span class="st">&quot;id&quot;</span><span class="ot">      aris.type=</span><span class="st">&quot;db7dbe50-0162-11e2-4df7-00155d5f8f19&quot;</span><span class="kw">/&gt;</span>
+  
+  <span class="co">&lt;!-- ARIS Label: Standard Publisher --&gt;</span>
+  <span class="kw">&lt;nkey</span><span class="ot"> nisp.attribute=</span><span class="st">&quot;orgid&quot;</span><span class="ot">   aris.type=</span><span class="st">&quot;0eb1f570-0163-11e2-4df7-00155d5f8f19&quot;</span><span class="kw">/&gt;</span>
+
+  <span class="co">&lt;!-- ARIS Label: NISP PUBNUM --&gt;</span>
+  <span class="kw">&lt;nkey</span><span class="ot"> nisp.attribute=</span><span class="st">&quot;pubnum&quot;</span><span class="ot">  aris.type=</span><span class="st">&quot;1d2ee9a0-0163-11e2-4df7-00155d5f8f19&quot;</span><span class="kw">/&gt;</span>
+
+  <span class="co">&lt;!-- ARIS Label: Standard Ratification Date --&gt;</span>
+  <span class="kw">&lt;nkey</span><span class="ot"> nisp.attribute=</span><span class="st">&quot;date&quot;</span><span class="ot">    aris.type=</span><span class="st">&quot;c8d548e0-0162-11e2-4df7-00155d5f8f19&quot;</span><span class="kw">/&gt;</span>
+
+  <span class="co">&lt;!-- ARIS Label: Standard Version --&gt;</span>
+  <span class="kw">&lt;nkey</span><span class="ot"> nisp.attribute=</span><span class="st">&quot;version&quot;</span><span class="ot"> aris.type=</span><span class="st">&quot;30006ae0-0163-11e2-4df7-00155d5f8f19&quot;</span><span class="kw">/&gt;</span>
+
+  <span class="co">&lt;!-- ARIS Label: NISP Status --&gt;</span>
+  <span class="kw">&lt;nkey</span><span class="ot"> nisp.attribute=</span><span class="st">&quot;status&quot;</span><span class="ot">  aris.type=</span><span class="st">&quot;3b35d530-0163-11e2-4df7-00155d5f8f19&quot;</span><span class="kw">/&gt;</span>
+
+  <span class="co">&lt;!-- ARIS Label: NISP TYPE --&gt;</span>
+  <span class="kw">&lt;nkey</span><span class="ot"> nisp.attribute=</span><span class="st">&quot;type&quot;</span><span class="ot">    aris.type=</span><span class="st">&quot;45f5e870-0163-11e2-4df7-00155d5f8f19&quot;</span><span class="kw">/&gt;</span>
+<span class="kw">&lt;/nisp-attributes&gt;</span></code></pre>
+<h1 id="importing-the-the-nisp">Importing the the NISP</h1>
+<p>TBD</p>
+<h1 id="files">Files</h1>
+<p>The files which are part of the distribution are</p>
+<ul>
+<li>ARIS-Export.dtd - DTD for the ARIS XML export format (version 7.2.4)</li>
+<li>nisp2aris.xsl - Transformation of NISP to ARIS part 1</li>
+<li>nisp2aris-p2.xsl - Transformation of NISP to ARIS part 2</li>
+<li>nisp2aris-p3.xsl - Transformation of NISP to ARIS part 3</li>
+<li>nisp-attribute-map - Mapping between NISP attributes and ARIS attributes types</li>
+<li>params.xsl - User defined configuration parameters</li>
+<li>README.md - This file (Pandoc Markdown sources)</li>
+<li>README.html - This file in HTML5</li>
+</ul>
+<h1 id="todo">TODO</h1>
+<ul>
+<li>Relations - Use tag name instead of ID</li>
+</ul>
+</body>
+</html>
