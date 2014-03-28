@@ -80,7 +80,7 @@
         <Group Group.ID="Group.artifacts-{$dt}">
           <xsl:call-template name="create.AttrDef">
             <xsl:with-param name="type" select="'AT_NAME'"/>
-            <xsl:with-param name="value" select="'Artifacts'"/>
+            <xsl:with-param name="value" select="'Artefacts'"/>
           </xsl:call-template>
           <xsl:apply-templates select="records/*"/>
         </Group>  
@@ -117,7 +117,7 @@
 
 
 
-<!-- The following three templates are used to create ARIS objects in the Artifacts
+<!-- The following three templates are used to create ARIS objects in the Artefacts
      group.
 
 -->
