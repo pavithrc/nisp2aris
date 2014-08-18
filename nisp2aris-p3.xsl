@@ -83,7 +83,8 @@
             <xsl:with-param name="value" select="'Artefacts'"/>
           </xsl:call-template>
           <xsl:apply-templates select="records/*"/>
-        </Group>  
+        </Group>
+<!--  
         <Group Group.ID="Group.taxonomy-{$dt}">
           <xsl:call-template name="create.AttrDef">
             <xsl:with-param name="type" select="'AT_NAME'"/>
@@ -99,6 +100,7 @@
           <xsl:apply-templates select="records/coverstandard" mode="relations"/>
           <xsl:apply-templates select="records/profile" mode="relations"/>
         </Group>
+-->
         <!-- Show tagged standards -->
         <xsl:call-template name="show.tagged.standards">
           <xsl:with-param name="mode" select="'Mandatory'"/>
@@ -129,15 +131,24 @@
       <xsl:value-of select="@id"/>
     </xsl:attribute>
     <GUID><xsl:value-of select="uuid"/></GUID>
-    <xsl:variable name="new.tag">
-      <xsl:value-of select="@tag"/>
-      <xsl:if test="@tag =''">
-        <xsl:value-of select="document/@title"/>
+    <xsl:variable name="display.name">
+      <xsl:if test="document/@orgid != ''">
+        <xsl:value-of select="document/@orgid"/>
+        <xsl:text> </xsl:text>          
+      </xsl:if>
+      <xsl:if test="document/@pubnum != ''">
+        <xsl:value-of select="document/@pubnum"/>
+        <xsl:text> </xsl:text>          
+      </xsl:if>
+      <xsl:if test="@tag != ''">
+        <xsl:text>(</xsl:text>
+        <xsl:value-of select="@tag"/>
+        <xsl:text>)</xsl:text>
       </xsl:if>
     </xsl:variable>
     <xsl:call-template name="create.AttrDef">
       <xsl:with-param name="type" select="'AT_NAME'"/>
-      <xsl:with-param name="value" select="$new.tag"/>
+      <xsl:with-param name="value" select="$display.name"/>
     </xsl:call-template>
     <xsl:call-template  name="create.AttrDef">
       <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='type']/@aris.type"/>
@@ -214,15 +225,24 @@
       </xsl:attribute>
     </xsl:if>
     <GUID><xsl:value-of select="uuid"/></GUID>
-    <xsl:variable name="new.tag">
-      <xsl:value-of select="@tag"/>
-      <xsl:if test="@tag =''">
-        <xsl:value-of select="document/@title"/>
+    <xsl:variable name="display.name">
+      <xsl:if test="document/@orgid != ''">
+        <xsl:value-of select="document/@orgid"/>
+        <xsl:text> </xsl:text>          
+      </xsl:if>
+      <xsl:if test="document/@pubnum != ''">
+        <xsl:value-of select="document/@pubnum"/>
+        <xsl:text> </xsl:text>          
+      </xsl:if>
+      <xsl:if test="@tag != ''">
+        <xsl:text>(</xsl:text>
+        <xsl:value-of select="@tag"/>
+        <xsl:text>)</xsl:text>
       </xsl:if>
     </xsl:variable>
     <xsl:call-template name="create.AttrDef">
       <xsl:with-param name="type" select="'AT_NAME'"/>
-      <xsl:with-param name="value" select="$new.tag"/>
+      <xsl:with-param name="value" select="$display.name"/>
     </xsl:call-template>
     <xsl:call-template  name="create.AttrDef">
       <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='type']/@aris.type"/>
@@ -293,15 +313,24 @@
       </xsl:attribute>
     </xsl:if>
     <GUID><xsl:value-of select="uuid"/></GUID>
-    <xsl:variable name="new.tag">
-      <xsl:value-of select="@tag"/>
-      <xsl:if test="@tag =''">
-        <xsl:text>Profile tag is missing</xsl:text>
+    <xsl:variable name="display.name">
+      <xsl:if test="document/@orgid != ''">
+        <xsl:value-of select="document/@orgid"/>
+        <xsl:text> </xsl:text>          
+      </xsl:if>
+      <xsl:if test="document/@pubnum != ''">
+        <xsl:value-of select="document/@pubnum"/>
+        <xsl:text> </xsl:text>          
+      </xsl:if>
+      <xsl:if test="@tag != ''">
+        <xsl:text>(</xsl:text>
+        <xsl:value-of select="@tag"/>
+        <xsl:text>)</xsl:text>
       </xsl:if>
     </xsl:variable>
     <xsl:call-template name="create.AttrDef">
       <xsl:with-param name="type" select="'AT_NAME'"/>
-      <xsl:with-param name="value" select="$new.tag"/>
+      <xsl:with-param name="value" select="$display.name"/>
     </xsl:call-template>
     <xsl:call-template  name="create.AttrDef">
       <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='type']/@aris.type"/>
