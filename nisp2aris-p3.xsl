@@ -318,12 +318,12 @@
     </xsl:if>
     <GUID><xsl:value-of select="uuid"/></GUID>
     <xsl:variable name="display.name">
-      <xsl:if test="document/@orgid != ''">
-        <xsl:value-of select="key('orgname', document/@orgid)/@text"/>
+      <xsl:if test="profilespec/@orgid != ''">
+        <xsl:value-of select="key('orgname', profilespec/@orgid)/@text"/>
         <xsl:text> </xsl:text>          
       </xsl:if>
-      <xsl:if test="document/@pubnum != ''">
-        <xsl:value-of select="document/@pubnum"/>
+      <xsl:if test="profilespec/@pubnum != ''">
+        <xsl:value-of select="profilespec/@pubnum"/>
         <xsl:text> </xsl:text>          
       </xsl:if>
       <xsl:if test="@tag != ''">
@@ -349,19 +349,19 @@
     <xsl:if test="$show.nisp.orgid = 1">
       <xsl:call-template name="create.AttrDef">
         <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='orgid']/@aris.type"/>
-        <xsl:with-param name="value" select="key('orgname', document/@orgid)/@text"/>
+        <xsl:with-param name="value" select="key('orgname', profilespec/@orgid)/@text"/>
       </xsl:call-template>
     </xsl:if>
     <xsl:if test="$show.nisp.pubnum = 1">
       <xsl:call-template name="create.AttrDef">
         <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='pubnum']/@aris.type"/>
-        <xsl:with-param name="value" select="document/@pubnum"/>
+        <xsl:with-param name="value" select="profilespec/@pubnum"/>
       </xsl:call-template>
     </xsl:if>
     <xsl:if test="$show.nisp.title = 1">
       <xsl:call-template name="create.AttrDef">
         <xsl:with-param name="type" select="'AT_NAME_FULL'"/>
-        <xsl:with-param name="value" select="document/@title"/>
+        <xsl:with-param name="value" select="profilespec/@title"/>
       </xsl:call-template>
     </xsl:if>
 
@@ -373,10 +373,10 @@
       </xsl:call-template>
     </xsl:if>
 
-    <xsl:if test="($show.nisp.version = 1) and (document/@version != '')">
+    <xsl:if test="($show.nisp.version = 1) and (profilespec/@version != '')">
       <xsl:call-template name="create.AttrDef">
         <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='version']/@aris.type"/>
-        <xsl:with-param name="value" select="document/@version"/>
+        <xsl:with-param name="value" select="profilespec/@version"/>
       </xsl:call-template>
     </xsl:if>
     <xsl:if test="$show.nisp.applicability = 1">
