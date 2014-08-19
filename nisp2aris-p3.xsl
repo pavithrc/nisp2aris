@@ -43,6 +43,10 @@
 <xsl:param name="nisp.attributes.map" select="document($nisp.attributes.file)"/>
 
 
+<!-- Use organisational map -->
+
+<xsl:key name="orgname" match="standards/organisations/orgkey" use="@key"/>
+
 <!-- Generated date/time variables -->
 
 <xsl:variable name="now" select="translate(xs:string(current-dateTime()), ':', '.')"/>
@@ -133,7 +137,7 @@
     <GUID><xsl:value-of select="uuid"/></GUID>
     <xsl:variable name="display.name">
       <xsl:if test="document/@orgid != ''">
-        <xsl:value-of select="document/@orgid"/>
+        <xsl:value-of select="key('orgname', document/@orgid)/@text"/>
         <xsl:text> </xsl:text>          
       </xsl:if>
       <xsl:if test="document/@pubnum != ''">
@@ -163,7 +167,7 @@
     <xsl:if test="$show.nisp.orgid = 1">
       <xsl:call-template name="create.AttrDef">
         <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='orgid']/@aris.type"/>
-        <xsl:with-param name="value" select="document/@orgid"/>
+        <xsl:with-param name="value" select="key('orgname', document/@orgid)/@text"/>
       </xsl:call-template>
     </xsl:if>
     <xsl:if test="$show.nisp.pubnum = 1">
@@ -227,7 +231,7 @@
     <GUID><xsl:value-of select="uuid"/></GUID>
     <xsl:variable name="display.name">
       <xsl:if test="document/@orgid != ''">
-        <xsl:value-of select="document/@orgid"/>
+        <xsl:value-of select="key('orgname', document/@orgid)/@text"/>
         <xsl:text> </xsl:text>          
       </xsl:if>
       <xsl:if test="document/@pubnum != ''">
@@ -257,7 +261,7 @@
     <xsl:if test="$show.nisp.orgid = 1">
       <xsl:call-template name="create.AttrDef">
         <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='orgid']/@aris.type"/>
-        <xsl:with-param name="value" select="document/@orgid"/>
+        <xsl:with-param name="value" select="key('orgname', document/@orgid)/@text"/>
       </xsl:call-template>
     </xsl:if>
     <xsl:if test="$show.nisp.pubnum = 1">
@@ -315,7 +319,7 @@
     <GUID><xsl:value-of select="uuid"/></GUID>
     <xsl:variable name="display.name">
       <xsl:if test="document/@orgid != ''">
-        <xsl:value-of select="document/@orgid"/>
+        <xsl:value-of select="key('orgname', document/@orgid)/@text"/>
         <xsl:text> </xsl:text>          
       </xsl:if>
       <xsl:if test="document/@pubnum != ''">
@@ -345,7 +349,7 @@
     <xsl:if test="$show.nisp.orgid = 1">
       <xsl:call-template name="create.AttrDef">
         <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='orgid']/@aris.type"/>
-        <xsl:with-param name="value" select="document/@orgid"/>
+        <xsl:with-param name="value" select="key('orgname', document/@orgid)/@text"/>
       </xsl:call-template>
     </xsl:if>
     <xsl:if test="$show.nisp.pubnum = 1">
