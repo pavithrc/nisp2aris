@@ -87,15 +87,15 @@
             <xsl:with-param name="value" select="'Artefacts'"/>
           </xsl:call-template>
           <xsl:apply-templates select="records/*"/>
-        </Group>
-<!--  
+        </Group>  
         <Group Group.ID="Group.taxonomy-{$dt}">
           <xsl:call-template name="create.AttrDef">
             <xsl:with-param name="type" select="'AT_NAME'"/>
             <xsl:with-param name="value" select="'Taxonomy'"/>
           </xsl:call-template>
           <xsl:apply-templates select="taxonomy/servicearea"/>
-        </Group>  
+        </Group>
+<!--
         <Group Group.ID="Group.relations-{$dt}">
           <xsl:call-template name="create.AttrDef">
             <xsl:with-param name="type" select="'AT_NAME'"/>
