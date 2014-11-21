@@ -24,24 +24,29 @@
 
   -->
 
-  <!-- ARIS Label: Standard Identifier -->
+  <!-- ARIS Label: STANDARD Identifier -->
   <nkey nisp.attribute="id"      aris.type="db7dbe50-0162-11e2-4df7-00155d5f8f19"/>
   
-  <!-- ARIS Label: Standard Publisher -->
+  <!-- ARIS Label: STANDARD Publisher -->
   <nkey nisp.attribute="orgid"   aris.type="0eb1f570-0163-11e2-4df7-00155d5f8f19"/>
 
-  <!-- ARIS Label: NISP PUBNUM -->
+  <!-- ARIS Label: NISP Pubnum -->
   <nkey nisp.attribute="pubnum"  aris.type="1d2ee9a0-0163-11e2-4df7-00155d5f8f19"/>
 
-  <!-- ARIS Label: Standard Ratification Date -->
-  <nkey nisp.attribute="date"    aris.type="c8d548e0-0162-11e2-4df7-00155d5f8f19"/>
+  <!-- ARIS Label: STANDARD Ratification Date -->
+  <nkey nisp.attribute="date"    aris.type="638c2b30-6f1e-11e4-637f-001dd7b71c43"/>
 
-  <!-- ARIS Label: Standard Version -->
+  <!-- ARIS Label: STANDARD Withdrawal Date -->
+<!--  
+  <nkey nisp.attribute=""    aris.type=""/>
+-->
+
+  <!-- ARIS Label: STANDARD Version -->
   <nkey nisp.attribute="version" aris.type="30006ae0-0163-11e2-4df7-00155d5f8f19"/>
 
   <!-- ARIS Label: NISP Status -->
   <nkey nisp.attribute="status"  aris.type="3b35d530-0163-11e2-4df7-00155d5f8f19"/>
 
-  <!-- ARIS Label: NISP TYPE -->
+  <!-- ARIS Label: STANDARD Type -->
   <nkey nisp.attribute="type"    aris.type="45f5e870-0163-11e2-4df7-00155d5f8f19"/>
 </nisp-attributes>
