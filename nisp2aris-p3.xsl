@@ -277,10 +277,9 @@
       </xsl:call-template>
     </xsl:if>
     <xsl:if test="$show.nisp.date = 1">
-      <xsl:variable name="aris.date"><xsl:apply-templates select="document/@date"/></xsl:variable>
       <xsl:call-template name="create.simple.AttrDef">
         <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='date']/@aris.type"/>
-        <xsl:with-param name="value" select="$aris.date"/>
+        <xsl:with-param name="value" select="document/@date"/>
       </xsl:call-template>
     </xsl:if>
     <xsl:if test="($show.nisp.version = 1) and (document/@version != '')">
@@ -365,11 +364,11 @@
       </xsl:call-template>
     </xsl:if>
 
-    <!-- For the time beeing use default timestamp in profiles -->
+    <!-- For the time beeing use empty date in profiles -->
     <xsl:if test="$show.nisp.date = 1">
       <xsl:call-template name="create.simple.AttrDef">
         <xsl:with-param name="type" select="$nisp.attributes.map/nisp-attributes/nkey[@nisp.attribute='date']/@aris.type"/>
-        <xsl:with-param name="value" select="$default.ARIS.date"/>
+        <xsl:with-param name="value" select="''"/>
       </xsl:call-template>
     </xsl:if>
 
@@ -393,23 +392,6 @@
     </xsl:if>
   </ObjDef>
 </xsl:template>
-
-
-<xsl:template match="document/@date">
-  <xsl:choose>
-    <xsl:when test="string-length(.)=4"><xsl:text>01/01/</xsl:text><xsl:value-of
-              select="."/></xsl:when>
-    <xsl:when test="string-length(.)=7"><xsl:value-of 
-              select="substring(., 6, 2)"/><xsl:text>/01/</xsl:text><xsl:value-of
-              select="substring(., 1, 4)"/></xsl:when>
-    <xsl:when test="string-length(.)=9"><xsl:value-of
-              select="substring(., 6, 2)"/><xsl:text>/</xsl:text><xsl:value-of 
-              select="substring(., 9, 2)"/><xsl:text>/</xsl:text><xsl:value-of
-              select="substring(., 1, 4)"/></xsl:when>
-    <xsl:otherwise><xsl:value-of select="$default.ARIS.date"/></xsl:otherwise>
-  </xsl:choose>
-</xsl:template>
-
 
 <!-- Create the NISP taxonomy -->
 
