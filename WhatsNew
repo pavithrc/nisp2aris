@@ -1,0 +1,9 @@
+WhatsNew
+========
+
+
+
+- 25. january 2015
+
+  * Can import the NISP 8.0.3 database - This version assumes the date
+    is in ARIS defined as a string, instead of a datetime type.

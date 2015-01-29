@@ -220,7 +220,7 @@ The files which are part of the distribution are
 * params.xsl - User defined configuration parameters
 * README.md - This file (Pandoc Markdown sources)
 * README.html - This file in HTML5
-
+* WhatsNew - Status of distribution
 
 
 # TODO
